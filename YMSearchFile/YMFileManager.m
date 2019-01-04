@@ -11,7 +11,9 @@
 #import "YMProjectMode.h"
 #import "YMParserFileImport.h"
 
-@interface YMFileManager ()
+#import "YMSearchFile.h"
+
+@interface YMFileManager ()<YMSearchFileDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, YMFileMode *> *fileModeDict;
 
@@ -22,6 +24,9 @@
 
 @property (nonatomic, strong) NSMutableSet<YMFileMode *> *tmpFileModeSet;
 @property (nonatomic, strong) NSMutableSet<NSString *> *ignoreFileNameSet;
+
+@property (nonatomic, strong) YMSearchFile *searchFileService;
+@property (nonatomic, strong) YMParserFileImport *parserFileService;
 @end
 
 @implementation YMFileManager
@@ -35,42 +40,14 @@
     return defaultManager;
 }
 
-#pragma mark - 搜索文件
-- (void)searchPath:(NSString *)path {
-    if ([self.searchPathBlackList containsObject:path]) {
-        return;
-    }
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL isDirectory = YES;
-    if (![fileManager fileExistsAtPath:path isDirectory:&isDirectory]) {
-        return;
-    }
-    if (!isDirectory) {
-        [[YMFileManager defaultManager] addFilePath:path];
-    }else {
-        NSArray *list = [fileManager contentsOfDirectoryAtPath:path error:nil];
-        for (NSString *name in list) {
-            if ([name hasPrefix:@"."]) {
-                continue;
-            }
-            [self searchPath:[path stringByAppendingPathComponent:name]];
-        }
-    }
+#pragma mark - YMSearchFileDelegate
+- (void)searchFile:(YMSearchFile *)searchFile parserFilePath:(NSString *)filePath result:(void (^)(NSSet<NSString *> * _Nonnull))result {
+    [self.parserFileService parserImportWithFilePath:filePath result:result];
 }
 
-- (void)addFilePath:(NSString *)filePath {
-    YMFileMode *fileMode = [self fileModeAtFilePath:filePath];
-    if (fileMode == nil) {
-        return;
-    }
-    [self.parserFileImport filePath:filePath result:^(NSSet<NSString *> *importFileNames) {
-        
-        [fileMode.includeFileNameSets unionSet:importFileNames];
-        for (NSString *fileName in importFileNames) {
-            YMFileMode *includeFileMode = [self fileModeAtFileName:fileName];
-            [includeFileMode.citedFileNameSets addObject:filePath];
-        }
-    }];
+#pragma mark - 搜索文件
+- (void)traversingPath:(NSString *)path {
+    [self.searchFileService searchPath:path];
 }
 
 #pragma mark - 输出文件
@@ -145,34 +122,6 @@
     }
 }
 
-- (YMFileMode *)fileModeAtFileName:(NSString *)fileName {
-    YMFileMode *fileMode = self.fileModeDict[fileName];
-    if (fileMode == nil) {
-        fileMode = YMFileMode.new;
-        fileMode.fileName = fileName;
-        [self.fileModeDict setObject:fileMode forKey:fileName];
-    }
-    return fileMode;
-}
-
-- (YMFileMode *)fileModeAtFilePath:(NSString *)filePath {
-    NSString *fileName = [[filePath lastPathComponent] stringByDeletingPathExtension];
-    YMFileMode *fileMode = [self fileModeAtFileName:fileName];
-    NSString *pathExtension = filePath.pathExtension;
-    if ([pathExtension isEqualToString:@"h"]) {
-        fileMode.hFilePath = filePath;
-    }else if ([pathExtension isEqualToString:@"m"]) {
-        fileMode.mFilePath = filePath;
-    }else if ([pathExtension isEqualToString:@"swift"]) {
-        fileMode.swiftFilePath = filePath;
-    }else if ([pathExtension isEqualToString:@"xib"]) {
-        fileMode.xibFilePath = filePath;
-    }else {
-        fileMode.otherFilePath = filePath;
-    }
-    return fileMode;
-}
-
 - (NSMutableDictionary<NSString *,YMFileMode *> *)fileModeDict {
     if (_fileModeDict == nil) {
         _fileModeDict = NSMutableDictionary.dictionary;
@@ -206,11 +155,18 @@
     return self.projectMode.projectTextContent;
 }
 
-//- (NSArray *)supportPathExtensionList {
-//    if (_supportPathExtensionList == nil) {
-//        _supportPathExtensionList = @[@"h", @"m", @"swift"];
-//    }
-//    return _supportPathExtensionList;
-//}
+- (YMSearchFile *)searchFileService {
+    if (_searchFileService == nil) {
+        _searchFileService = YMSearchFile.new;
+    }
+    return _searchFileService;
+}
+
+- (YMParserFileImport *)parserFileService {
+    if (_parserFileService == nil) {
+        _parserFileService = YMParserFileImport.new;
+    }
+    return _parserFileService;
+}
 
 @end

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YMParserFileImport : NSObject
 
-- (void)filePath:(NSString *)filePath result:(void (^) (NSSet<NSString *> *importFileNames))result;
+- (void)parserImportWithFilePath:(NSString *)filePath result:(void (^) (NSSet<NSString *> *importFileNames))result;
 
 @end
 

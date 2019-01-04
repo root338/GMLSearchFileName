@@ -16,7 +16,7 @@
 
 @implementation YMParserFileImport
 
-- (void)filePath:(NSString *)filePath result:(nonnull void (^)(NSSet<NSString *> *))result {
+- (void)parserImportWithFilePath:(NSString *)filePath result:(void (^)(NSSet<NSString *> * _Nonnull))result {
     NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
     NSMutableSet *includeFileNameList = NSMutableSet.set;
     NSString *originFileName = [[filePath lastPathComponent] stringByDeletingPathExtension];

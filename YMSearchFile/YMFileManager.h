@@ -28,7 +28,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)searchPath:(NSString *)path;
 
 - (nullable NSMutableDictionary *)inputAllFileMode;
-
+/// 遍历指定目录
+- (void)traversingPath:(NSString *)path;
+/// 根据被引用文件数对文件分级
+- (void)citedFileNumberGrading;
+/// 根据 < lessCitedFileNumber(小于被引用的个数) 的条件 删除文件
+- (void)removeFileAtLessCitedFileNumber:(NSInteger)lessCitedFileNumber;
 
 @end
 
