@@ -16,8 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *projectFilePath;
 @property (nonatomic, readonly) NSString *projectTextContent;
 
-- (void)deleteFileName:(NSString *)fileName fileExtension:(nullable NSString *)fileExtension;
-
+- (void)replaceProjectFile;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,11 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		1828F92D21DEF72600ADE215 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1828F92C21DEF72600ADE215 /* main.m */; };
-		1828F93821DEF7E400ADE215 /* YMSearchFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1828F93721DEF7E400ADE215 /* YMSearchFile.m */; };
+		1828F93821DEF7E400ADE215 /* YMSearchFileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1828F93721DEF7E400ADE215 /* YMSearchFileService.m */; };
 		1828F93B21DEF9F500ADE215 /* YMFileMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1828F93A21DEF9F500ADE215 /* YMFileMode.m */; };
-		1828F93E21DEFB2400ADE215 /* YMFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1828F93D21DEFB2400ADE215 /* YMFileManager.m */; };
-		1828F94121DF000400ADE215 /* YMParserFileImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 1828F94021DF000400ADE215 /* YMParserFileImport.m */; };
+		1828F93E21DEFB2400ADE215 /* YMXcodeProjectFileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1828F93D21DEFB2400ADE215 /* YMXcodeProjectFileService.m */; };
+		1828F94121DF000400ADE215 /* YMParserFileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1828F94021DF000400ADE215 /* YMParserFileService.m */; };
 		18BB152421DF25540043CBA6 /* YMProjectMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BB152321DF25540043CBA6 /* YMProjectMode.m */; };
+		6D88417621E06C7F00DB8B27 /* GMLFileGroupingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88417521E06C7F00DB8B27 /* GMLFileGroupingService.m */; };
+		6D88417921E06D6500DB8B27 /* GMLDeleteFileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88417821E06D6500DB8B27 /* GMLDeleteFileService.m */; };
+		6D88417E21E07F9B00DB8B27 /* GMLFileConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88417D21E07F9B00DB8B27 /* GMLFileConstants.m */; };
+		6D88418121E088AC00DB8B27 /* GMLLogService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88418021E088AC00DB8B27 /* GMLLogService.m */; };
+		6D88418421E0A1B400DB8B27 /* GMLFilterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88418321E0A1B400DB8B27 /* GMLFilterService.m */; };
+		6D88418721E0DAAA00DB8B27 /* GMLFolderGroupingMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88418621E0DAAA00DB8B27 /* GMLFolderGroupingMode.m */; };
+		6D88418F21E0F7F100DB8B27 /* GMLProjectGroupingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88418E21E0F7F100DB8B27 /* GMLProjectGroupingHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,16 +37,30 @@
 /* Begin PBXFileReference section */
 		1828F92921DEF72600ADE215 /* YMSearchFile */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = YMSearchFile; sourceTree = BUILT_PRODUCTS_DIR; };
 		1828F92C21DEF72600ADE215 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1828F93621DEF7E400ADE215 /* YMSearchFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMSearchFile.h; sourceTree = "<group>"; };
-		1828F93721DEF7E400ADE215 /* YMSearchFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMSearchFile.m; sourceTree = "<group>"; };
+		1828F93621DEF7E400ADE215 /* YMSearchFileService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMSearchFileService.h; sourceTree = "<group>"; };
+		1828F93721DEF7E400ADE215 /* YMSearchFileService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMSearchFileService.m; sourceTree = "<group>"; };
 		1828F93921DEF9F500ADE215 /* YMFileMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMFileMode.h; sourceTree = "<group>"; };
 		1828F93A21DEF9F500ADE215 /* YMFileMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMFileMode.m; sourceTree = "<group>"; };
-		1828F93C21DEFB2400ADE215 /* YMFileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMFileManager.h; sourceTree = "<group>"; };
-		1828F93D21DEFB2400ADE215 /* YMFileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMFileManager.m; sourceTree = "<group>"; };
-		1828F93F21DF000400ADE215 /* YMParserFileImport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMParserFileImport.h; sourceTree = "<group>"; };
-		1828F94021DF000400ADE215 /* YMParserFileImport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMParserFileImport.m; sourceTree = "<group>"; };
+		1828F93C21DEFB2400ADE215 /* YMXcodeProjectFileService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMXcodeProjectFileService.h; sourceTree = "<group>"; };
+		1828F93D21DEFB2400ADE215 /* YMXcodeProjectFileService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMXcodeProjectFileService.m; sourceTree = "<group>"; };
+		1828F93F21DF000400ADE215 /* YMParserFileService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMParserFileService.h; sourceTree = "<group>"; };
+		1828F94021DF000400ADE215 /* YMParserFileService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMParserFileService.m; sourceTree = "<group>"; };
 		18BB152221DF25540043CBA6 /* YMProjectMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMProjectMode.h; sourceTree = "<group>"; };
 		18BB152321DF25540043CBA6 /* YMProjectMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMProjectMode.m; sourceTree = "<group>"; };
+		6D88417421E06C7F00DB8B27 /* GMLFileGroupingService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLFileGroupingService.h; sourceTree = "<group>"; };
+		6D88417521E06C7F00DB8B27 /* GMLFileGroupingService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLFileGroupingService.m; sourceTree = "<group>"; };
+		6D88417721E06D6500DB8B27 /* GMLDeleteFileService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLDeleteFileService.h; sourceTree = "<group>"; };
+		6D88417821E06D6500DB8B27 /* GMLDeleteFileService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLDeleteFileService.m; sourceTree = "<group>"; };
+		6D88417C21E07F9B00DB8B27 /* GMLFileConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLFileConstants.h; sourceTree = "<group>"; };
+		6D88417D21E07F9B00DB8B27 /* GMLFileConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLFileConstants.m; sourceTree = "<group>"; };
+		6D88417F21E088AC00DB8B27 /* GMLLogService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLLogService.h; sourceTree = "<group>"; };
+		6D88418021E088AC00DB8B27 /* GMLLogService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLLogService.m; sourceTree = "<group>"; };
+		6D88418221E0A1B400DB8B27 /* GMLFilterService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLFilterService.h; sourceTree = "<group>"; };
+		6D88418321E0A1B400DB8B27 /* GMLFilterService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLFilterService.m; sourceTree = "<group>"; };
+		6D88418521E0DAAA00DB8B27 /* GMLFolderGroupingMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLFolderGroupingMode.h; sourceTree = "<group>"; };
+		6D88418621E0DAAA00DB8B27 /* GMLFolderGroupingMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLFolderGroupingMode.m; sourceTree = "<group>"; };
+		6D88418D21E0F7F100DB8B27 /* GMLProjectGroupingHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLProjectGroupingHelper.h; sourceTree = "<group>"; };
+		6D88418E21E0F7F100DB8B27 /* GMLProjectGroupingHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLProjectGroupingHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,18 +94,64 @@
 			isa = PBXGroup;
 			children = (
 				1828F92C21DEF72600ADE215 /* main.m */,
-				1828F93C21DEFB2400ADE215 /* YMFileManager.h */,
-				1828F93D21DEFB2400ADE215 /* YMFileManager.m */,
-				1828F93621DEF7E400ADE215 /* YMSearchFile.h */,
-				1828F93721DEF7E400ADE215 /* YMSearchFile.m */,
-				1828F93921DEF9F500ADE215 /* YMFileMode.h */,
-				1828F93A21DEF9F500ADE215 /* YMFileMode.m */,
-				1828F93F21DF000400ADE215 /* YMParserFileImport.h */,
-				1828F94021DF000400ADE215 /* YMParserFileImport.m */,
-				18BB152221DF25540043CBA6 /* YMProjectMode.h */,
-				18BB152321DF25540043CBA6 /* YMProjectMode.m */,
+				1828F93C21DEFB2400ADE215 /* YMXcodeProjectFileService.h */,
+				1828F93D21DEFB2400ADE215 /* YMXcodeProjectFileService.m */,
+				6D88418C21E0F7D300DB8B27 /* Other */,
+				6D88417B21E07F7D00DB8B27 /* Constants */,
+				6D88417A21E06D8B00DB8B27 /* Mode */,
+				6D88417321E06A4D00DB8B27 /* FileService */,
 			);
 			path = YMSearchFile;
+			sourceTree = "<group>";
+		};
+		6D88417321E06A4D00DB8B27 /* FileService */ = {
+			isa = PBXGroup;
+			children = (
+				1828F93621DEF7E400ADE215 /* YMSearchFileService.h */,
+				1828F93721DEF7E400ADE215 /* YMSearchFileService.m */,
+				1828F93F21DF000400ADE215 /* YMParserFileService.h */,
+				1828F94021DF000400ADE215 /* YMParserFileService.m */,
+				6D88417421E06C7F00DB8B27 /* GMLFileGroupingService.h */,
+				6D88417521E06C7F00DB8B27 /* GMLFileGroupingService.m */,
+				6D88417721E06D6500DB8B27 /* GMLDeleteFileService.h */,
+				6D88417821E06D6500DB8B27 /* GMLDeleteFileService.m */,
+				6D88417F21E088AC00DB8B27 /* GMLLogService.h */,
+				6D88418021E088AC00DB8B27 /* GMLLogService.m */,
+				6D88418221E0A1B400DB8B27 /* GMLFilterService.h */,
+				6D88418321E0A1B400DB8B27 /* GMLFilterService.m */,
+			);
+			path = FileService;
+			sourceTree = "<group>";
+		};
+		6D88417A21E06D8B00DB8B27 /* Mode */ = {
+			isa = PBXGroup;
+			children = (
+				1828F93921DEF9F500ADE215 /* YMFileMode.h */,
+				1828F93A21DEF9F500ADE215 /* YMFileMode.m */,
+				18BB152221DF25540043CBA6 /* YMProjectMode.h */,
+				18BB152321DF25540043CBA6 /* YMProjectMode.m */,
+				6D88418521E0DAAA00DB8B27 /* GMLFolderGroupingMode.h */,
+				6D88418621E0DAAA00DB8B27 /* GMLFolderGroupingMode.m */,
+			);
+			path = Mode;
+			sourceTree = "<group>";
+		};
+		6D88417B21E07F7D00DB8B27 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				6D88417C21E07F9B00DB8B27 /* GMLFileConstants.h */,
+				6D88417D21E07F9B00DB8B27 /* GMLFileConstants.m */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		6D88418C21E0F7D300DB8B27 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				6D88418D21E0F7F100DB8B27 /* GMLProjectGroupingHelper.h */,
+				6D88418E21E0F7F100DB8B27 /* GMLProjectGroupingHelper.m */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,10 +211,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				1828F93B21DEF9F500ADE215 /* YMFileMode.m in Sources */,
-				1828F94121DF000400ADE215 /* YMParserFileImport.m in Sources */,
+				6D88418F21E0F7F100DB8B27 /* GMLProjectGroupingHelper.m in Sources */,
+				6D88418121E088AC00DB8B27 /* GMLLogService.m in Sources */,
+				6D88418721E0DAAA00DB8B27 /* GMLFolderGroupingMode.m in Sources */,
+				6D88418421E0A1B400DB8B27 /* GMLFilterService.m in Sources */,
+				1828F94121DF000400ADE215 /* YMParserFileService.m in Sources */,
 				1828F92D21DEF72600ADE215 /* main.m in Sources */,
-				1828F93821DEF7E400ADE215 /* YMSearchFile.m in Sources */,
-				1828F93E21DEFB2400ADE215 /* YMFileManager.m in Sources */,
+				6D88417E21E07F9B00DB8B27 /* GMLFileConstants.m in Sources */,
+				1828F93821DEF7E400ADE215 /* YMSearchFileService.m in Sources */,
+				1828F93E21DEFB2400ADE215 /* YMXcodeProjectFileService.m in Sources */,
+				6D88417921E06D6500DB8B27 /* GMLDeleteFileService.m in Sources */,
+				6D88417621E06C7F00DB8B27 /* GMLFileGroupingService.m in Sources */,
 				18BB152421DF25540043CBA6 /* YMProjectMode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
