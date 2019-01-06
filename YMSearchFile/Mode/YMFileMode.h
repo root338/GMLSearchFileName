@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addFileRelationPath:(NSString *)path;
 - (void)removePath:(NSString *)path;
 
+- (BOOL)containsPath:(NSString *)path;
 - (BOOL)containsPathExtension:(NSString *)pathExtension;
 
 - (instancetype)initWithFileName:(NSString *)fileName;

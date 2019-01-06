@@ -102,6 +102,10 @@ static NSString * typeAtPathExtension(NSString *path) {
     return NO;
 }
 
+- (BOOL)containsPath:(NSString *)path {
+    return [_filePaths containsObject:path];
+}
+
 - (NSHashTable<YMFileMode *> *)citedFileNameTable {
     if (_citedFileNameTable == nil) {
         _citedFileNameTable = [[NSHashTable alloc] initWithOptions:NSHashTableWeakMemory capacity:0];

@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSDictionary<NSString *, YMFileMode *> *)searchPath:(NSString *)path ignorePathSet:(NSSet<NSString *> *)ignorePathSet error:(NSError **_Nullable)error;
 
+
+
 @end
 
 NS_ASSUME_NONNULL_END

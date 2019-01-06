@@ -37,8 +37,11 @@
 - (NSDictionary<NSString *, GMLFolderGroupingMode *> *)accordingToBasePathGroupingFileWithFileModeSet:(NSSet<YMFileMode *> *)fileModeSet basePathSet:(nonnull NSSet<NSString *> *)basePathSet {
     
     NSMutableDictionary<NSString *, GMLFolderGroupingMode *> *dict = NSMutableDictionary.dictionary;
-    [fileModeSet enumerateObjectsUsingBlock:^(YMFileMode * _Nonnull fileMode, BOOL * _Nonnull stop) {
+    for (YMFileMode *fileMode in fileModeSet) {
         NSString *key = [self keyWithFileMode:fileMode basePathSet:basePathSet];
+        if (key == nil) {
+            continue;
+        }
         GMLFolderGroupingMode *groupMode = dict[key];
         if (groupMode == nil) {
             groupMode = GMLFolderGroupingMode.new;
@@ -48,20 +51,19 @@
         NSEnumerator *includeEnumerator = fileMode.includeFileNameTable.objectEnumerator;
         for (YMFileMode *includeFileMode = includeEnumerator.nextObject; includeFileMode; includeFileMode = includeEnumerator.nextObject) {
             NSString *includeFolderKey = [self keyWithFileMode:includeFileMode basePathSet:basePathSet];
-            if (![includeFolderKey isEqualToString:key]) {
+            if (includeFolderKey && ![includeFolderKey isEqualToString:key]) {
                 [groupMode addIncludeFolder:includeFolderKey fileMode:includeFileMode];
             }
         }
         NSEnumerator *citedEnumerator = fileMode.citedFileNameTable.objectEnumerator;
         for (YMFileMode *citedFileMode = citedEnumerator.nextObject; citedFileMode; citedFileMode = citedEnumerator.nextObject) {
             NSString *citedFolderKey = [self keyWithFileMode:citedFileMode basePathSet:basePathSet];
-            if (![citedFolderKey isEqualToString:key]) {
-                [groupMode addCitedFolder:citedFolderKey fileMode:citedFileMode];
+            if (citedFolderKey && ![citedFolderKey isEqualToString:key]) {
+                [groupMode addCitedOtherFolderWithFileMode:fileMode];
+                break;
             }
         }
-        
-        
-    }];
+    }
     return dict;
 }
 

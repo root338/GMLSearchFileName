@@ -41,24 +41,26 @@
         NSMutableString *logContent = [NSMutableString stringWithFormat:@"%@ 目录下内容:\n", key];
         
         void (^inputLog) (NSArray *) = ^(NSArray *tmpFileModeArray) {
+            [logContent appendString:@"-----|"];
             for (YMFileMode *fileMode in tmpFileModeArray) {
-                [logContent appendFormat:@"%@\n",fileMode.fileName];
+                [logContent appendFormat:@"     |-- %@\n",fileMode.fileName];
             }
-        };
-        void(^inputDictLog) (NSString *, NSDictionary<NSString *, NSArray<YMFileMode *> *> *) = ^(NSString *title, NSDictionary<NSString *, NSArray<YMFileMode *> *> *fileModeDict) {
-            [logContent appendString:[self autoGenerateMarkWithText:@"=" title:title]];
-            [fileModeDict enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull baseFilePath, NSArray<YMFileMode *> * _Nonnull fileArray, BOOL * _Nonnull stop) {
-                [logContent appendFormat:@"<<<<< %@\n", baseFilePath];
-                inputLog(fileArray);
-            }];
         };
         
         [logContent appendString:[self autoGenerateMarkWithText:@"=" title:@"文件夹包含的文件"]];
         inputLog(obj.allFileMode);
         [logContent appendString:@"\n\n"];
-        inputDictLog(@"引用的外部文件", obj.includeFileModeDict);
+        
+        [logContent appendString:[self autoGenerateMarkWithText:@"=" title:@"引用的外部文件"]];
+        NSDictionary<NSString *, NSArray<YMFileMode *> *> *includeFileModeDict = obj.includeFileModeDict;
+        [includeFileModeDict enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull baseFilePath, NSArray<YMFileMode *> * _Nonnull fileArray, BOOL * _Nonnull stop) {
+            [logContent appendFormat:@"\n>>> %@\n", baseFilePath];
+            inputLog(fileArray);
+        }];
         [logContent appendString:@"\n\n"];
-        inputDictLog(@"被外部文件引用的文件", obj.citedFileModeDict);
+        
+        [logContent appendString:[self autoGenerateMarkWithText:@"=" title:@"被外部文件引用的文件"]];
+        inputLog(obj.citedFileModeArray);
         
         [logContent writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     }];
@@ -67,9 +69,9 @@
 - (NSString *)autoGenerateMarkWithText:(NSString *)text title:(NSString *)title {
     NSInteger textTotal = 0;
     if (title.length % 2 == 0) {
-        textTotal = 30;
+        textTotal = 60;
     }else {
-        textTotal = 31;
+        textTotal = 61;
     }
     
     NSString *(^createMarkText) (NSUInteger, NSString *) = ^(NSUInteger count, NSString *markText){
@@ -83,7 +85,7 @@
     NSMutableString *markText = NSMutableString.string;
     
     NSUInteger spaceTextCount = 5;
-    NSUInteger markTextCount = (textTotal - title.length) / 2 - spaceTextCount;
+    NSUInteger markTextCount = (textTotal - title.length) / 2 - spaceTextCount * 2;
     if (markTextCount < 0) {
         spaceTextCount = 0;
     }
@@ -95,7 +97,7 @@
     [markText appendString:createMarkText(spaceTextCount, @" ")];
     [markText appendString:createMarkText(markTextCount, text)];
     [markText appendString:@"\n"];
-    [markText appendString:createMarkText(markTextCount, text)];
+    [markText appendString:createMarkText(textTotal, text)];
     [markText appendString:@"\n"];
     
     return markText;

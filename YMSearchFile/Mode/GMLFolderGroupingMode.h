@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 引用的所有文件
 @property (nullable, nonatomic, readonly) NSDictionary<NSString *, NSArray<YMFileMode *> *> *includeFileModeDict;
 /// 被引用的所有文件
-@property (nullable, nonatomic, readonly) NSDictionary<NSString *, NSArray<YMFileMode *> *> *citedFileModeDict;
+@property (nullable, nonatomic, readonly) NSArray<YMFileMode *> *citedFileModeArray;
 
 /// 文件夹存在的文件
 - (void)addFileMode:(YMFileMode *)fileMode;
@@ -33,9 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addIncludeFolder:(NSString *)includeFolder fileModeTable:(NSHashTable<YMFileMode *> *)fileModeTable;
 
 /// 被其他文件夹引用的文件
-- (void)addCitedFolder:(NSString *)citedFolder fileMode:(YMFileMode *)fileMode;
-/// 被其他文件夹引用的文件
-- (void)addCitedFolder:(NSString *)citedFolder fileModeTable:(NSHashTable<YMFileMode *> *)fileModeTable;
+- (void)addCitedOtherFolderWithFileMode:(YMFileMode *)fileMode;
 
 @end
 

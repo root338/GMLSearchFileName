@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSSet<YMFileMode *> *)fileModeSet:(NSSet<YMFileMode *> *)fileModeSet filterIncludePathExtensions:(NSSet<NSString *> *)filterIncludePathExtensions;
 
-
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -15,7 +15,7 @@
 /// 文件夹需要外部的文件
 @property (nonatomic, strong) NSMapTable<NSString *,NSHashTable<YMFileMode *> *> *includeOtherFolderFileModeMap;
 /// 被其他文件夹引用的文件
-@property (nonatomic, strong) NSMapTable<NSString *,NSHashTable<YMFileMode *> *> *citedOtherFolderFileModeMap;
+@property (nonatomic, strong) NSHashTable<YMFileMode *> *citedOtherFolderFileModeTable;
 
 @end
 
@@ -33,12 +33,8 @@
     [[self tableAtIncludeFolder:includeFolder] unionHashTable:fileModeTable];
 }
 
-- (void)addCitedFolder:(NSString *)citedFolder fileMode:(YMFileMode *)fileMode {
-    [[self tableAtCitedFolder:citedFolder] addObject:fileMode];
-}
-
-- (void)addCitedFolder:(NSString *)citedFolder fileModeTable:(NSHashTable<YMFileMode *> *)fileModeTable {
-    [[self tableAtCitedFolder:citedFolder] unionHashTable:fileModeTable];
+- (void)addCitedOtherFolderWithFileMode:(YMFileMode *)fileMode {
+    [self.citedOtherFolderFileModeTable addObject:fileMode];
 }
 
 - (NSDictionary<NSString *,NSArray<YMFileMode *> *> *)transformWithMap:(NSMapTable<NSString *,NSHashTable<YMFileMode *> *> *)map {
@@ -59,8 +55,8 @@
     return [self transformWithMap:_includeOtherFolderFileModeMap];
 }
 
-- (NSDictionary<NSString *,NSArray<YMFileMode *> *> *)citedFileModeDict {
-    return [self transformWithMap:_citedOtherFolderFileModeMap];
+- (NSArray<YMFileMode *> *)citedFileModeArray {
+    return [_citedOtherFolderFileModeTable allObjects];
 }
 
 - (NSHashTable<YMFileMode *> *)tableAtIncludeFolder:(NSString *)includeFolder {
@@ -70,16 +66,6 @@
     }
     table = [[NSHashTable alloc] initWithOptions:NSHashTableWeakMemory capacity:0];
     [self.includeOtherFolderFileModeMap setObject:table forKey:includeFolder];
-    return table;
-}
-
-- (NSHashTable<YMFileMode *> *)tableAtCitedFolder:(NSString *)citedFolder {
-    NSHashTable<YMFileMode *> *table = [_citedOtherFolderFileModeMap objectForKey:citedFolder];
-    if (table != nil) {
-        return table;
-    }
-    table = [[NSHashTable alloc] initWithOptions:NSHashTableWeakMemory capacity:0];
-    [self.citedOtherFolderFileModeMap setObject:table forKey:citedFolder];
     return table;
 }
 
@@ -97,11 +83,11 @@
     return _includeOtherFolderFileModeMap;
 }
 
-- (NSMapTable<NSString *,NSHashTable<YMFileMode *> *> *)citedOtherFolderFileModeMap {
-    if (_citedOtherFolderFileModeMap == nil) {
-        _citedOtherFolderFileModeMap = [[NSMapTable alloc] initWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableStrongMemory capacity:0];
+- (NSHashTable<YMFileMode *> *)citedOtherFolderFileModeTable {
+    if (_citedOtherFolderFileModeTable == nil) {
+        _citedOtherFolderFileModeTable = [[NSHashTable alloc] initWithOptions:NSHashTableWeakMemory capacity:0];
     }
-    return _citedOtherFolderFileModeMap;
+    return _citedOtherFolderFileModeTable;
 }
 
 @end

@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#import "GMLProjectGroupingHelper.h"
 #import "YMXcodeProjectFileService.h"
 
-#import "YMProjectMode.h"
+#import "NSString+GMLPathTools.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -18,8 +19,12 @@ int main(int argc, const char * argv[]) {
         NSString *userFolderPath = @"/Users/ml";
         NSString *projectFolderPath = [userFolderPath stringByAppendingPathComponent:@"dev/yuemei_mainAPP/QuickAskCommunity"];
         
+        
+        
         YMXcodeProjectFileService *fileManager = YMXcodeProjectFileService.new;
         fileManager.fileIndexPath = [projectFolderPath stringByAppendingPathComponent:@"QuickAskCommunity.xcodeproj/project.pbxproj"];
+        
+        [NSString folderListAtFromPath:userFolderPath toPath:fileManager.fileIndexPath];
         
         fileManager.ignoreSearchPathSet = [NSSet setWithArray: @[
                                                                  [projectFolderPath stringByAppendingPathComponent:@"QuickAskCommunity/Resources"],
@@ -34,14 +39,12 @@ int main(int argc, const char * argv[]) {
         
         NSString *logFolderPath = [userFolderPath stringByAppendingPathComponent:@"Desktop"];
         
-//        [fileManager traversingPath:[projectFolderPath stringByAppendingPathComponent:@"QuickAskCommunity"]];
+        [fileManager traversingPath:[projectFolderPath stringByAppendingPathComponent:@"QuickAskCommunity"]];
 //        [fileManager removeFileAtMaxCitedFileNumber:0];
 //        [fileManager outputCitedNumberLogWithFolderPath:logFolderPath];
-        
-        NSArray *baseFolderArray = @[
-                                     
-                                     ];
-//        [fileManager outputFolderGroupingLogWithFolderPath:logFolderPath baseFolderSet:];
+        NSSet<NSString *> *targetPathSet = [NSSet setWithObjects:[projectFolderPath stringByAppendingPathComponent:@"QuickAskCommunity/Classes"], nil];
+        NSSet<NSString *> *baseFolderSet = [GMLProjectGroupingHelper baseFolderSetWithPaths:targetPathSet subpathlevel:2];
+        [fileManager outputFolderGroupingLogWithFolderPath:logFolderPath baseFolderSet:baseFolderSet];
     }
     return 0;
 }
