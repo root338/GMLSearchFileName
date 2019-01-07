@@ -3,7 +3,7 @@
 //  YMSearchFile
 //
 //  Created by GML on 2019/1/5.
-//  Copyright © 2019 apple. All rights reserved.
+//  Copyright © 2019 ml. All rights reserved.
 //
 
 #import "GMLProjectGroupingHelper.h"
@@ -12,19 +12,19 @@
 
 + (NSSet<NSString *> *)shouldDeleteFolderSet {
     NSArray<NSString *> *list = @[
-    @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/ShoppingCart",
-    @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/TaoDetail",
-    @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/Community",
-    @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/WriteDiary",
-    @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/PostList",
-    @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/TaoParticulars",
-    @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/Search",
-    @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/HomePage",
-    @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/DoctorHospitalList",
-    @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/PostDetail",
-    @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/Doctor",
-    @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/TaoList",
-    @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/My",
+    @"/Users/ml/dev/yuemei_mainAPP/QuickAskCommunity/QuickAskCommunity/Classes/Module/ShoppingCart",
+    @"/Users/ml/dev/yuemei_mainAPP/QuickAskCommunity/QuickAskCommunity/Classes/Module/TaoDetail",
+    @"/Users/ml/dev/yuemei_mainAPP/QuickAskCommunity/QuickAskCommunity/Classes/Module/Community",
+    @"/Users/ml/dev/yuemei_mainAPP/QuickAskCommunity/QuickAskCommunity/Classes/Module/WriteDiary",
+    @"/Users/ml/dev/yuemei_mainAPP/QuickAskCommunity/QuickAskCommunity/Classes/Module/PostList",
+    @"/Users/ml/dev/yuemei_mainAPP/QuickAskCommunity/QuickAskCommunity/Classes/Module/TaoParticulars",
+    @"/Users/ml/dev/yuemei_mainAPP/QuickAskCommunity/QuickAskCommunity/Classes/Module/Search",
+    @"/Users/ml/dev/yuemei_mainAPP/QuickAskCommunity/QuickAskCommunity/Classes/Module/HomePage",
+    @"/Users/ml/dev/yuemei_mainAPP/QuickAskCommunity/QuickAskCommunity/Classes/Module/DoctorHospitalList",
+    @"/Users/ml/dev/yuemei_mainAPP/QuickAskCommunity/QuickAskCommunity/Classes/Module/PostDetail",
+    @"/Users/ml/dev/yuemei_mainAPP/QuickAskCommunity/QuickAskCommunity/Classes/Module/Doctor",
+    @"/Users/ml/dev/yuemei_mainAPP/QuickAskCommunity/QuickAskCommunity/Classes/Module/TaoList",
+    @"/Users/ml/dev/yuemei_mainAPP/QuickAskCommunity/QuickAskCommunity/Classes/Module/My",
                                   ];
     return [NSSet setWithArray:list];
 }

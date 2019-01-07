@@ -24,6 +24,9 @@
     }
     NSMutableSet *includeFileNameList = NSMutableSet.set;
     NSString *originFileName = [[filePath lastPathComponent] stringByDeletingPathExtension];
+    if ([originFileName isEqualToString:@"BaseViewController"]) {
+        NSLog(@"");
+    }
     [self.regularExpression enumerateMatchesInString:content options:NSMatchingReportProgress range:NSMakeRange(0, content.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
         if (result != nil) {
             NSString *importText = [content substringWithRange:result.range];
@@ -33,6 +36,9 @@
             fileName = [fileName substringToIndex:fileName.length - 3];
             if (![fileName isEqualToString:originFileName]) {
                 [includeFileNameList addObject:fileName];
+            }
+            if ([includeFileNameList containsObject:@"YMAnalytics"]) {
+                NSLog(@"");
             }
         }
     }];

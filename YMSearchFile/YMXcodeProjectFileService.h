@@ -34,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
  * 现在仅删除包含 .h 的文件
  */
 - (void)removeFileAtMaxCitedFileNumber:(NSUInteger)maxCitedFileNumber;
+
+- (void)removeFolderGroupingWithDeleteFolderSet:(NSSet<NSString *> *)deleteFolderSet;
+
 /// 打印出遍历的文件结果
 - (void)outputCitedNumberLogWithFolderPath:(NSString *)folderPath;
 /// 输出按 baseFolderSet 分组的文件日志

@@ -116,6 +116,15 @@
     [self.deleteFileService deleteFileSet:deleteFileModeSet fileIndexPath:self.fileIndexPath];
 }
 
+- (void)removeFolderGroupingWithDeleteFolderSet:(NSSet<NSString *> *)deleteFolderSet {
+    NSSet<YMFileMode *> *fileModeSet = [self.filterService fileModeSet:[NSSet setWithArray:self.fileModeDict.allValues] filterIncludePathExtensions:[NSSet setWithObjects:GMLHTypeFile, nil]];
+    NSMutableSet *needDeleteFileModeSet = [NSMutableSet setWithSet:[self.fileGroupingService accordingToBasePathGroupingFileWithFileModeSet:fileModeSet shouldDeletePathSet:deleteFolderSet]];
+    NSSet<YMFileMode *> *ignoreFileModeSet = [self ignoreRemoveFileModeSet];
+    NSLog(@"total count : %li", ignoreFileModeSet.count);
+    [needDeleteFileModeSet minusSet:ignoreFileModeSet];
+    [self.deleteFileService deleteFileSet:needDeleteFileModeSet fileIndexPath:self.fileIndexPath];
+}
+
 #pragma mark - 打印日志
 - (void)outputCitedNumberLogWithFolderPath:(NSString *)folderPath {
     NSDictionary<NSNumber *,NSSet<YMFileMode *> *> *fileModeGroupingDict = [self accordingToCitedGroupingFileWithSupportPathExtensionSet:[NSSet setWithObjects:GMLHTypeFile, nil] completion:nil];
@@ -130,8 +139,8 @@
 - (void)outputFolderGroupingLogWithFolderPath:(NSString *)folderPath baseFolderSet:(nonnull NSSet<NSString *> *)baseFolderSet ignoreFolderSet:(nonnull NSSet<NSString *> *)ignoreFolderSet {
     
     NSSet<YMFileMode *> *fileModeSet = [self.filterService fileModeSet:[NSSet setWithArray:self.fileModeDict.allValues] filterIncludePathExtensions:[NSSet setWithObjects:GMLHTypeFile, nil]];
-    [self.fileGroupingService accordingToBasePathGroupingFileWithFileModeSet:fileModeSet shouldDeletePathSet:ignoreFolderSet];
-    [self.logService outputCitedGroupingFileModeData:@{@(0) : fileModeSet} folderPath:folderPath];
+    NSSet *result = [self.fileGroupingService accordingToBasePathGroupingFileWithFileModeSet:fileModeSet shouldDeletePathSet:ignoreFolderSet];
+    [self.logService outputCitedGroupingFileModeData:@{@(0) : result} folderPath:folderPath];
 }
 
 #pragma mark - 忽略文件处理
@@ -154,20 +163,21 @@
                 [ignoreFileModeTable addObject:fileMode];
             }
         }
-        [self recursiveFileNames:ignoreFileModeTable saveSet:ignoreFileModeSet didCacheFileNames:[[NSHashTable alloc] initWithOptions:NSHashTableWeakMemory capacity:0]];
+        [self recursiveFileNames:ignoreFileModeTable saveSet:ignoreFileModeSet didCacheFileNames:[[NSHashTable alloc] initWithOptions:NSHashTableWeakMemory capacity:0] level:0];
     }
     
     return ignoreFileModeSet;
 }
 
-- (void)recursiveFileNames:(NSHashTable<YMFileMode *> *)fileNames saveSet:(NSMutableSet<YMFileMode *> *)saveSet didCacheFileNames:(NSHashTable<YMFileMode *> *)didCacheFileNameSet {
+- (void)recursiveFileNames:(NSHashTable<YMFileMode *> *)fileNames saveSet:(NSMutableSet<YMFileMode *> *)saveSet didCacheFileNames:(NSHashTable<YMFileMode *> *)didCacheFileNameSet level:(NSUInteger)level {
     [fileNames minusHashTable:didCacheFileNameSet];
     [didCacheFileNameSet unionHashTable:fileNames];
     NSEnumerator *enumerator = fileNames.objectEnumerator;
     for (YMFileMode *fileMode = enumerator.nextObject; fileMode; fileMode = enumerator.nextObject) {
         [saveSet addObject:fileMode];
+        NSLog(@"level: %li file: %@", level, fileMode.fileName);
         if (fileMode.includeFileNameTable.count > 0) {
-            [self recursiveFileNames:fileMode.includeFileNameTable saveSet:saveSet didCacheFileNames:didCacheFileNameSet];
+            [self recursiveFileNames:fileMode.includeFileNameTable saveSet:saveSet didCacheFileNames:didCacheFileNameSet level:level + 1];
         }
     }
 }
