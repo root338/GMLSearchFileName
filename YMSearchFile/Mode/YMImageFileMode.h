@@ -1,8 +1,8 @@
 //
-//  GMLFileMode.h
+//  YMImageFileMode.h
 //  YMSearchFile
 //
-//  Created by GML on 2019/1/6.
+//  Created by apple on 2019/1/7.
 //  Copyright © 2019 apple. All rights reserved.
 //
 
@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GMLFileMode : NSObject
+@interface YMImageFileMode : NSObject
 
-@property (nonatomic, strong) NSString *filePath;
+
 
 @end
 

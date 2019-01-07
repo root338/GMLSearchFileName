@@ -38,6 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)outputCitedNumberLogWithFolderPath:(NSString *)folderPath;
 /// 输出按 baseFolderSet 分组的文件日志
 - (void)outputFolderGroupingLogWithFolderPath:(NSString *)folderPath baseFolderSet:(NSSet<NSString *> *)baseFolderSet;
+
+- (void)outputFolderGroupingLogWithFolderPath:(NSString *)folderPath baseFolderSet:(NSSet<NSString *> *)baseFolderSet ignoreFolderSet:(NSSet<NSString *> *)ignoreFolderSet;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -64,11 +64,12 @@
     if (tmpToPath == nil) { return nil; }
     
     if (![tmpToPath hasPrefix:tmpFromPath]) { return nil; }
-    
-    NSMutableArray *pathComponents = [NSMutableArray arrayWithArray:[tmpToPath substringFromIndex:tmpFromPath.length].pathComponents];
-    if ([pathComponents.firstObject isEqualToString:@"/"]) {
-        [pathComponents removeObjectAtIndex:0];
+    if ([tmpToPath isEqualToString:tmpFromPath]) {
+        return @[tmpToPath.lastPathComponent];
     }
+    NSArray *tmpFromPathComponents = tmpFromPath.pathComponents;
+    NSArray *tmpToPathComponents = tmpToPath.pathComponents;
+    NSArray *pathComponents = [tmpToPathComponents subarrayWithRange:NSMakeRange(tmpFromPathComponents.count, tmpToPathComponents.count - tmpFromPathComponents.count)];
     return pathComponents;
 }
 

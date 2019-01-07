@@ -121,9 +121,17 @@
     NSDictionary<NSNumber *,NSSet<YMFileMode *> *> *fileModeGroupingDict = [self accordingToCitedGroupingFileWithSupportPathExtensionSet:[NSSet setWithObjects:GMLHTypeFile, nil] completion:nil];
     [self.logService outputCitedGroupingFileModeData:fileModeGroupingDict folderPath:folderPath];
 }
+
 - (void)outputFolderGroupingLogWithFolderPath:(NSString *)folderPath baseFolderSet:(NSSet<NSString *> *)baseFolderSet {
-    NSDictionary<NSString *, GMLFolderGroupingMode *> *folderGroupingDict = [self.fileGroupingService accordingToBasePathGroupingFileWithFileModeSet:[NSSet setWithArray:self.fileModeDict.allValues] basePathSet:baseFolderSet];
+    NSDictionary<NSString *, GMLFolderGroupingMode *> *folderGroupingDict = [self accordingToCitedGroupingFileWithSupportPathExtensionSet:[NSSet setWithObjects:GMLHTypeFile, nil] baseFolderSet:baseFolderSet ignoreBasePathSet:nil];
     [self.logService outputFolderGroupingDict:folderGroupingDict folderPath:folderPath];
+}
+
+- (void)outputFolderGroupingLogWithFolderPath:(NSString *)folderPath baseFolderSet:(nonnull NSSet<NSString *> *)baseFolderSet ignoreFolderSet:(nonnull NSSet<NSString *> *)ignoreFolderSet {
+    
+    NSSet<YMFileMode *> *fileModeSet = [self.filterService fileModeSet:[NSSet setWithArray:self.fileModeDict.allValues] filterIncludePathExtensions:[NSSet setWithObjects:GMLHTypeFile, nil]];
+    [self.fileGroupingService accordingToBasePathGroupingFileWithFileModeSet:fileModeSet shouldDeletePathSet:ignoreFolderSet];
+    [self.logService outputCitedGroupingFileModeData:@{@(0) : fileModeSet} folderPath:folderPath];
 }
 
 #pragma mark - 忽略文件处理
@@ -170,6 +178,12 @@
     NSSet<YMFileMode *> *fileModeSet = [self.filterService fileModeSet:[NSSet setWithArray:self.fileModeDict.allValues] filterIncludePathExtensions:supportPathExtensionSet];
     NSDictionary<NSNumber *,NSSet<YMFileMode *> *> *fileModeGroupingDict = [self.fileGroupingService accordingToCitedGroupingFileWithFileModeSet:fileModeSet completion:completion];
     return fileModeGroupingDict;
+}
+
+- (NSDictionary<NSString *, GMLFolderGroupingMode *> *)accordingToCitedGroupingFileWithSupportPathExtensionSet:(NSSet<NSString *> *)supportPathExtensionSet baseFolderSet:(NSSet<NSString *> *)baseFolderSet ignoreBasePathSet:(NSSet<NSString *> *)ignoreBasePathSet {
+    NSSet<YMFileMode *> *fileModeSet = [self.filterService fileModeSet:[NSSet setWithArray:self.fileModeDict.allValues] filterIncludePathExtensions:supportPathExtensionSet];
+    NSDictionary<NSString *, GMLFolderGroupingMode *> *folderGroupingDict = [self.fileGroupingService accordingToBasePathGroupingFileWithFileModeSet:fileModeSet basePathSet:baseFolderSet ignoreBasePathSet:ignoreBasePathSet];
+    return folderGroupingDict;
 }
 
 - (NSString *)projectFilePath {

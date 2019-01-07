@@ -41,7 +41,7 @@
         NSMutableString *logContent = [NSMutableString stringWithFormat:@"%@ 目录下内容:\n", key];
         
         void (^inputLog) (NSArray *) = ^(NSArray *tmpFileModeArray) {
-            [logContent appendString:@"-----|"];
+            [logContent appendString:@"-----|\n"];
             for (YMFileMode *fileMode in tmpFileModeArray) {
                 [logContent appendFormat:@"     |-- %@\n",fileMode.fileName];
             }
@@ -59,8 +59,11 @@
         }];
         [logContent appendString:@"\n\n"];
         
-        [logContent appendString:[self autoGenerateMarkWithText:@"=" title:@"被外部文件引用的文件"]];
-        inputLog(obj.citedFileModeArray);
+        [logContent appendString:[self autoGenerateMarkWithText:@"=" title:@"被外部文件引用的关联文件"]];
+        inputLog(obj.citedRelationFileModeArray);
+        
+        [logContent appendString:[self autoGenerateMarkWithText:@"=" title:@"仅在内部使用的文件"]];
+        inputLog(obj.onlyInternalUseFileModeArray);
         
         [logContent writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     }];
@@ -84,7 +87,7 @@
     
     NSMutableString *markText = NSMutableString.string;
     
-    NSUInteger spaceTextCount = 5;
+    NSUInteger spaceTextCount = 6;
     NSUInteger markTextCount = (textTotal - title.length) / 2 - spaceTextCount * 2;
     if (markTextCount < 0) {
         spaceTextCount = 0;
@@ -92,9 +95,9 @@
     [markText appendString:createMarkText(textTotal, text)];
     [markText appendString:@"\n"];
     [markText appendString:createMarkText(markTextCount, text)];
-    [markText appendString:createMarkText(spaceTextCount, @" ")];
+    [markText appendString:createMarkText(spaceTextCount + spaceTextCount / 2, @" ")];
     [markText appendString:title];
-    [markText appendString:createMarkText(spaceTextCount, @" ")];
+    [markText appendString:createMarkText(spaceTextCount + spaceTextCount / 2, @" ")];
     [markText appendString:createMarkText(markTextCount, text)];
     [markText appendString:@"\n"];
     [markText appendString:createMarkText(textTotal, text)];

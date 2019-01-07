@@ -17,9 +17,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface GMLFileGroupingService : NSObject
 ///根据被引用的数量分组
-- (NSDictionary<NSNumber *, NSSet<YMFileMode *> *> *)accordingToCitedGroupingFileWithFileModeSet:(NSSet<YMFileMode *> *)fileModeSet completion:(void (NS_NOESCAPE ^ _Nullable) (NSUInteger minCitedCount, NSUInteger p))completion;
+- (nullable NSDictionary<NSNumber *, NSSet<YMFileMode *> *> *)accordingToCitedGroupingFileWithFileModeSet:(NSSet<YMFileMode *> *)fileModeSet completion:(void (NS_NOESCAPE ^ _Nullable) (NSUInteger minCitedCount, NSUInteger p))completion;
+
 ///根据基础目录分组
-- (NSDictionary<NSString *, GMLFolderGroupingMode *> *)accordingToBasePathGroupingFileWithFileModeSet:(NSSet<YMFileMode *> *)fileModeSet basePathSet:(NSSet<NSString *> *)basePathSet;
+- (nullable NSDictionary<NSString *, GMLFolderGroupingMode *> *)accordingToBasePathGroupingFileWithFileModeSet:(NSSet<YMFileMode *> *)fileModeSet basePathSet:(NSSet<NSString *> *)basePathSet;
+
+- (nullable NSDictionary<NSString *, GMLFolderGroupingMode *> *)accordingToBasePathGroupingFileWithFileModeSet:(NSSet<YMFileMode *> *)fileModeSet basePathSet:(NSSet<NSString *> *)basePathSet ignoreBasePathSet:(nullable NSSet<NSString *> *)ignoreBasePathSet;
+
+- (NSSet<YMFileMode *> *)accordingToBasePathGroupingFileWithFileModeSet:(NSSet<YMFileMode *> *)fileModeSet shouldDeletePathSet:(nullable NSSet<NSString *> *)shouldDeletePathSet;
 
 @end
 

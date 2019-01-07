@@ -12,11 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YMProjectMode : NSObject
 
+@property (nonatomic, strong) NSURL *projectFileURLPath;
 /// 项目文件配置列表
 @property (nonatomic, strong) NSString *projectFilePath;
 @property (nonatomic, readonly) NSString *projectTextContent;
 
-- (void)replaceProjectFile;
 @end
 
 NS_ASSUME_NONNULL_END

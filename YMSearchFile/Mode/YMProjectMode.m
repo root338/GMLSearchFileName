@@ -15,13 +15,6 @@
 
 @implementation YMProjectMode
 
-
-
-- (void)replaceProjectFile {
-    // 替换项目索引内容
-    [self.projectContent writeToFile:self.projectFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-}
-
 - (NSMutableString *)projectContent {
     if (_projectContent == nil) {
         _projectContent = [NSMutableString stringWithContentsOfFile:self.projectFilePath encoding:NSUTF8StringEncoding error:nil];

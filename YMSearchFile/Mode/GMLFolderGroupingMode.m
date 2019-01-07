@@ -7,9 +7,10 @@
 //
 
 #import "GMLFolderGroupingMode.h"
+#import "YMFileMode.h"
 
 @interface GMLFolderGroupingMode ()
-
+@property (nonatomic, copy, readwrite) NSString *folderPath;
 /// 文件夹存在的文件
 @property (nonatomic, strong) NSHashTable<YMFileMode *> *folderFileModeTable;
 /// 文件夹需要外部的文件
@@ -20,6 +21,14 @@
 @end
 
 @implementation GMLFolderGroupingMode
+
+- (instancetype)initWithFolderPath:(NSString *)folderPath {
+    self = [super init];
+    if (self) {
+        _folderPath = folderPath;
+    }
+    return self;
+}
 
 - (void)addFileMode:(YMFileMode *)fileMode {
     [self.folderFileModeTable addObject:fileMode];
@@ -46,6 +55,20 @@
     return tmpDict;
 }
 
+- (void)recursiveFileModes:(NSHashTable<YMFileMode *> *)fileModes saveSet:(NSHashTable<YMFileMode *> *)saveTable didCacheFileNames:(NSHashTable<YMFileMode *> *)didCacheFileNameSet {
+    NSEnumerator *enumerator = fileModes.objectEnumerator;
+    for (YMFileMode *fileMode = enumerator.nextObject; fileMode; fileMode = enumerator.nextObject) {
+        if ([didCacheFileNameSet containsObject:fileMode]) {
+            continue;
+        }
+        [didCacheFileNameSet addObject:fileMode];
+        if ([[fileMode.allRelationPathSet anyObject] hasPrefix:self.folderPath]) {
+            [saveTable addObject:fileMode];
+        }
+        [self recursiveFileModes:fileMode.includeFileNameTable saveSet:saveTable didCacheFileNames:didCacheFileNameSet];
+    }
+}
+
 #pragma mark - Getter & Setter
 - (NSArray<YMFileMode *> *)allFileMode {
     return [self.folderFileModeTable allObjects];
@@ -57,6 +80,18 @@
 
 - (NSArray<YMFileMode *> *)citedFileModeArray {
     return [_citedOtherFolderFileModeTable allObjects];
+}
+
+- (NSArray<YMFileMode *> *)onlyInternalUseFileModeArray {
+    NSMutableSet *set = [NSMutableSet setWithArray:self.allFileMode];
+    [set minusSet:[NSSet setWithArray:self.citedRelationFileModeArray]];
+    return set.allObjects;
+}
+
+- (NSArray<YMFileMode *> *)citedRelationFileModeArray {
+    NSHashTable<YMFileMode *> *saveTable = [[NSHashTable alloc] initWithOptions:NSHashTableWeakMemory capacity:0];
+    [self recursiveFileModes:self.citedOtherFolderFileModeTable saveSet:saveTable didCacheFileNames:[[NSHashTable alloc] initWithOptions:NSHashTableWeakMemory capacity:0]];
+    return saveTable.allObjects;
 }
 
 - (NSHashTable<YMFileMode *> *)tableAtIncludeFolder:(NSString *)includeFolder {

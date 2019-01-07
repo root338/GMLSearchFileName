@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GMLProjectGroupingHelper : NSObject
 
+@property (class, nonatomic, readonly) NSSet<NSString *> *shouldDeleteFolderSet;
+
 /**
  给定path下的子级目录为基础文件夹
 

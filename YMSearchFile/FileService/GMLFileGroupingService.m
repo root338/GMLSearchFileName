@@ -35,6 +35,10 @@
 }
 
 - (NSDictionary<NSString *, GMLFolderGroupingMode *> *)accordingToBasePathGroupingFileWithFileModeSet:(NSSet<YMFileMode *> *)fileModeSet basePathSet:(nonnull NSSet<NSString *> *)basePathSet {
+    return [self accordingToBasePathGroupingFileWithFileModeSet:fileModeSet basePathSet:basePathSet ignoreBasePathSet:nil];
+}
+
+- (NSDictionary<NSString *,GMLFolderGroupingMode *> *)accordingToBasePathGroupingFileWithFileModeSet:(NSSet<YMFileMode *> *)fileModeSet basePathSet:(NSSet<NSString *> *)basePathSet ignoreBasePathSet:(NSSet<NSString *> *)ignoreBasePathSet {
     
     NSMutableDictionary<NSString *, GMLFolderGroupingMode *> *dict = NSMutableDictionary.dictionary;
     for (YMFileMode *fileMode in fileModeSet) {
@@ -44,7 +48,7 @@
         }
         GMLFolderGroupingMode *groupMode = dict[key];
         if (groupMode == nil) {
-            groupMode = GMLFolderGroupingMode.new;
+            groupMode = [[GMLFolderGroupingMode alloc] initWithFolderPath:key];
             dict[key] = groupMode;
         }
         [groupMode addFileMode:fileMode];
@@ -58,13 +62,52 @@
         NSEnumerator *citedEnumerator = fileMode.citedFileNameTable.objectEnumerator;
         for (YMFileMode *citedFileMode = citedEnumerator.nextObject; citedFileMode; citedFileMode = citedEnumerator.nextObject) {
             NSString *citedFolderKey = [self keyWithFileMode:citedFileMode basePathSet:basePathSet];
-            if (citedFolderKey && ![citedFolderKey isEqualToString:key]) {
-                [groupMode addCitedOtherFolderWithFileMode:fileMode];
-                break;
+            if (![ignoreBasePathSet containsObject:citedFolderKey]) {
+                if (citedFolderKey && ![citedFolderKey isEqualToString:key]) {
+                    [groupMode addCitedOtherFolderWithFileMode:fileMode];
+                    break;
+                }
             }
         }
     }
     return dict;
+}
+
+- (NSSet<YMFileMode *> *)accordingToBasePathGroupingFileWithFileModeSet:(NSSet<YMFileMode *> *)fileModeSet shouldDeletePathSet:(nullable NSSet<NSString *> *)shouldDeletePathSet {
+    
+    NSMutableSet *needDeleteSet = NSMutableSet.set;
+    for (YMFileMode *fileMode in fileModeSet) {
+        BOOL result = [self isAddCanDeletedFileMode:fileMode canNotDeletePathSet:nil shouldDeletePathSet:shouldDeletePathSet didCacheFileModes:[[NSHashTable alloc] initWithOptions:NSHashTableWeakMemory capacity:0]];
+        if (result) {
+            [needDeleteSet addObject:fileMode];
+        }
+    }
+    return needDeleteSet;
+}
+
+- (BOOL)isAddCanDeletedFileMode:(YMFileMode *)fileMode canNotDeletePathSet:(nonnull NSSet<NSString *> *)canNotDeletePathSet shouldDeletePathSet:(nullable NSSet<NSString *> *)shouldDeletePathSet didCacheFileModes:(NSHashTable *)didCacheFileModes {
+    
+    NSString *key = [self keyWithFileMode:fileMode basePathSet:shouldDeletePathSet];
+    if (key == nil) {
+        return NO;
+    }
+    
+    NSEnumerator *enumerator = nil;
+    
+    if (![didCacheFileModes containsObject:fileMode]) {
+        enumerator = fileMode.citedFileNameTable.objectEnumerator;
+        [didCacheFileModes addObject:fileMode];
+    }
+    
+    BOOL result = YES;
+    for (YMFileMode *obj = enumerator.nextObject; obj; obj = enumerator.nextObject) {
+        
+        result = [self isAddCanDeletedFileMode:fileMode canNotDeletePathSet:canNotDeletePathSet shouldDeletePathSet:shouldDeletePathSet didCacheFileModes:didCacheFileModes];
+        if (!result) {
+            break;
+        }
+    }
+    return result;
 }
 
 //- (void)fileMode:(YMFileMode *)fileMode basePathSet:(NSSet<NSString *> *)basePathSet belong:(void(^)(NSString *))belongBlock includeOtherFolder:(void(^)(NSString *, YMFileMode *))includeOtherFolder citedOtherFolder:(void(^)(NSString *, YMFileMode *))citedOtherFolder {
