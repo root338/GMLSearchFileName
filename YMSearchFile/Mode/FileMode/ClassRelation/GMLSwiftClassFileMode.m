@@ -31,7 +31,7 @@
 
 - (NSHashTable<id<GMLFileProtocol>> *)hashTable {
     if (_hashTable == nil) {
-        _hashTable = [[NSHashTable alloc] initWithOptions:NSHashTableWeakMemory capacity:0];
+        _hashTable = [[NSHashTable alloc] initWithOptions:NSHashTableStrongMemory capacity:0];
     }
     return _hashTable;
 }

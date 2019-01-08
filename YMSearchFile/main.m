@@ -17,7 +17,7 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
         GMLIOSProjectService *projectService = GMLIOSProjectService.new;
-        [projectService traversingPath:[NSURL fileURLWithPath:@"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity"]];
+        [projectService traversingPath:[NSURL fileURLWithPath:@"/Users/ml/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/HomePage/Controller"]];
         
 //        NSString *userFolderPath = @"/Users/ml";
 //        NSString *projectFolderPath = [userFolderPath stringByAppendingPathComponent:@"dev/yuemei_mainAPP/QuickAskCommunity"];
