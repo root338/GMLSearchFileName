@@ -21,21 +21,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@protocol GMLFileProtocol <GMLPathProtocol>
-
-@end
-
-@protocol GMLFolderProtocol <GMLPathProtocol>
-
-@property (nullable, nonatomic, strong, readonly) NSArray<id<GMLFolderProtocol>> *folderArray;
-@property (nullable, nonatomic, strong, readonly) NSArray<id<GMLFileProtocol>> *fileArray;
-
-- (void)addFolder:(id<GMLFolderProtocol>)folder;
-- (void)addFile:(id<GMLFileProtocol>)file;
-
-- (nullable id<GMLFolderProtocol>)folderAtURL:(NSURL *)URL;
-- (nullable id<GMLFileProtocol>)fileAtURL:(NSURL *)URL;
-
-@end
-
 NS_ASSUME_NONNULL_END

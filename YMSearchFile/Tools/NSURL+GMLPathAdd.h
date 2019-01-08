@@ -15,9 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, readonly) GMLPathType pathType;
 
+@property (nonatomic, assign, readonly) GMLFileType fileType;
 @property (nonatomic, assign, readonly) GMLFolderType folderType;
 
 - (nullable NSArray<NSString *> *)folderListAtToPath:(NSURL *)toPath;
+
+- (BOOL)isIncludeURL:(NSURL *)targetURL;
 @end
 
 NS_ASSUME_NONNULL_END

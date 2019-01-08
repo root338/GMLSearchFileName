@@ -11,6 +11,20 @@
 
 @implementation NSURL (GMLPathAdd)
 
+- (GMLPathType)pathType {
+    NSNumber *isDirectoryKey;
+    NSError *error = nil;
+    [self getResourceValue:&isDirectoryKey forKey:NSURLIsDirectoryKey error:&error];
+    NSAssert(error == nil, @"获取链接属性错误");
+    if (isDirectoryKey == nil) {
+        return GMLPathTypeNotFound;
+    }else if (!isDirectoryKey.boolValue) {
+        return GMLPathTypeFile;
+    }else {
+        return GMLPathTypeFolder;
+    }
+}
+
 - (GMLFolderType)folderType {
     GMLPathType pathType = self.pathType;
     switch (pathType) {
@@ -32,18 +46,48 @@
     }
 }
 
-- (GMLPathType)pathType {
-    NSNumber *isDirectoryKey;
-    NSError *error = nil;
-    [self getResourceValue:&isDirectoryKey forKey:NSURLIsDirectoryKey error:&error];
-    NSAssert(error == nil, @"获取链接属性错误");
-    if (isDirectoryKey == nil) {
-        return GMLPathTypeNotFound;
-    }else if (!isDirectoryKey.boolValue) {
-        return GMLPathTypeFile;
-    }else {
-        return GMLPathTypeFolder;
+- (GMLFileType)fileType {
+    GMLPathType pathType = self.pathType;
+    switch (pathType) {
+        case GMLPathTypeNotFound: return GMLFileTypeNotFound;
+        case GMLPathTypeFolder: return GMLFileTypeNotFile;
+        case GMLPathTypeFile:
+        {
+            NSString *pathExtension = [self.pathExtension lowercaseString];
+            if ([pathExtension isEqualToString:GMLHTypeFile]) {
+                return GMLFileTypeH;
+            }else if ([pathExtension isEqualToString:GMLMTypeFile]) {
+                return GMLFileTypeM;
+            }else if ([pathExtension isEqualToString:GMLMMTypeFile]) {
+                return GMLFileTypeMM;
+            }else if ([pathExtension isEqualToString:GMLSWIFTTypeFile]) {
+                return GMLFileTypeSwift;
+            }else if ([pathExtension isEqualToString:GMLXIBTypeFile]) {
+                return GMLFileTypeXib;
+            }else if ([pathExtension isEqualToString:GMLStoryboardTypeFile]) {
+                return GMLFileTypeStoryboard;
+            }else if ([pathExtension isEqualToString:GMLATypeFile]) {
+                return GMLFileTypeA;
+            }else if ([pathExtension isEqualToString:GMLPCHTypeFile]) {
+                return GMLFileTypePCH;
+            }else if ([pathExtension isEqualToString:GMLJPGTypeFile]) {
+                return GMLFileTypeJPG;
+            }else if ([pathExtension isEqualToString:GMLPNGTypeFile]) {
+                return GMLFileTypePNG;
+            }else if ([pathExtension isEqualToString:GMLGIFTypeFile]) {
+                return GMLFileTypeGIF;
+            }else {
+                return GMLFileTypeUnknown;
+            }
+        }
     }
+}
+
+- (BOOL)isIncludeURL:(NSURL *)targetURL {
+    if ([self.absoluteString hasPrefix:targetURL.absoluteString]) {
+        return YES;
+    }
+    return NO;
 }
 
 - (NSArray<NSString *> *)folderListAtToPath:(NSURL *)toPath {
@@ -79,5 +123,7 @@
     NSArray *resultArray = [toPathComponents subarrayWithRange:NSMakeRange(fromPathComponents.count, toPathComponents.count - fromPathComponents.count)];
     return resultArray;
 }
+
+
 
 @end

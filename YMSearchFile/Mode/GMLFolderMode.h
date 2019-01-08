@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GMLPathProtocol.h"
+#import "GMLFolderProtocol.h"
 #import "GMLPathDefineTypeHeader.h"
 
 NS_ASSUME_NONNULL_BEGIN

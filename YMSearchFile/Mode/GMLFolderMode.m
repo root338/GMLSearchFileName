@@ -7,6 +7,7 @@
 //
 
 #import "GMLFolderMode.h"
+#import "GMLFileProtocol.h"
 #import "NSURL+GMLPathAdd.h"
 
 @interface GMLFolderMode ()
@@ -37,12 +38,72 @@
     return self;
 }
 
-- (void)addFile:(nonnull id<GMLFileProtocol>)file {
+- (void)addFile:(id<GMLFileProtocol>)file {
+    if (file == nil) {
+        return;
+    }
     [self.fileMapTable setObject:file forKey:file.pathURL.lastPathComponent];
 }
 
-- (void)addFolder:(nonnull id<GMLFolderProtocol>)folder {
+- (void)addFolder:(id<GMLFolderProtocol>)folder {
+    if (folder == nil) {
+        return;
+    }
     [self.folderMapTable setObject:folder forKey:folder.pathURL.lastPathComponent];
+}
+
+- (id<GMLFolderProtocol>)addFolderWithName:(NSString *)folderName {
+   
+    id<GMLFolderProtocol> targetFolder = [self.folderMapTable objectForKey:folderName];
+    if (targetFolder != nil) {
+        return targetFolder;
+    }
+    GMLFolderMode *folderMode = [[GMLFolderMode alloc] initWithPathURL:[self.pathURL URLByAppendingPathComponent:folderName]];
+    if (folderMode == nil) {
+        return nil;
+    }
+    [self addFolder:folderMode];
+    return folderMode;
+}
+
+- (id<GMLFolderProtocol>)addFolderWithPath:(NSURL *)path isDirectory:(BOOL *)isDirectory {
+    
+    id<GMLFolderProtocol> lateFolder = [self getOfLateFolderAtURL:path];
+    if (lateFolder == nil) {
+        return nil;
+    }
+    
+    NSArray<NSString *> *folderList = [lateFolder.pathURL folderListAtToPath:path];
+    id<GMLFolderProtocol> folderMode = lateFolder;
+    for (NSString *folderName in folderList) {
+        folderMode = [folderMode addFolderWithName:folderName];
+        if (folderMode == nil) {
+            return nil;
+        }
+    }
+    if (isDirectory != NULL) {
+        *isDirectory = path.pathType == GMLPathTypeFolder;
+    }
+    return folderMode;
+}
+
+- (id<GMLFolderProtocol>)getOfLateFolderAtURL:(NSURL *)URL {
+    NSArray<NSString *> *folderList = [self.pathURL folderListAtToPath:URL];
+    if (folderList == nil) {
+        return nil;
+    }
+    if (folderList.count == 0) {
+        return self;
+    }
+    id<GMLFolderProtocol> folder = [self folderAtName:folderList.firstObject];
+    if (folder == nil) {
+        return self;
+    }
+    return folder;
+}
+
+- (id<GMLFolderProtocol>)folderAtName:(NSString *)folderName {
+    return folderName? [self.folderMapTable objectForKey:folderName] : nil;
 }
 
 - (id<GMLFolderProtocol>)folderAtURL:(NSURL *)URL {
@@ -59,6 +120,10 @@
             return [self.folderMapTable objectForKey:folderList.firstObject];
         }
     }
+}
+
+- (id<GMLFileProtocol>)fileAtName:(NSString *)fileName {
+    return fileName? [self.fileMapTable objectForKey:fileName] : nil;
 }
 
 - (id<GMLFileProtocol>)fileAtURL:(NSURL *)URL {
