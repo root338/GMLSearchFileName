@@ -25,6 +25,10 @@
     return _hashTable.allObjects;
 }
 
+- (GMLClassLanguageType)classLanguageType {
+    return GMLClassLanguageTypeOC;
+}
+
 - (NSHashTable<id<GMLFileProtocol>> *)hashTable {
     if (_hashTable == nil) {
         _hashTable = [[NSHashTable alloc] initWithOptions:NSHashTableWeakMemory capacity:0];

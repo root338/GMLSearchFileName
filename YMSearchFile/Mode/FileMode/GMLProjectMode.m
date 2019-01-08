@@ -8,48 +8,64 @@
 
 #import "GMLProjectMode.h"
 
+#import "GMLFileMode.h"
 #import "GMLPCHFileMode.h"
 #import "GMLClassFileMode.h"
 #import "GMLImageFileMode.h"
 #import "GMLSwiftClassFileMode.h"
 #import "GMLStoryboardFileMode.h"
-#import "GMLSwiftBridgingFileMode.h"
 
 #import "GMLFileProtocol.h"
 #import "NSURL+GMLPathAdd.h"
 
 @interface GMLProjectMode ()
 
-@property (nonatomic, strong) GMLPCHFileMode *pchFileMode;
-@property (nonatomic, strong) GMLSwiftBridgingFileMode *swiftBridgingFileMode;
-@property (nonatomic, strong) GMLStoryboardFileMode *storyboardFileMode;
+@property (nonatomic, strong, readwrite) GMLFileMode *swiftHeaderFile;
+@property (nonatomic, strong, readwrite) GMLPCHFileMode *pchFileMode;
+@property (nonatomic, strong, readwrite) GMLFileMode *swiftBridgingFileMode;
+@property (nonatomic, strong, readwrite) GMLStoryboardFileMode *storyboardFileMode;
+@property (nonatomic, strong, readwrite) NSMapTable<NSString *, GMLImageFileMode *> *imageMapTable;
+@property (nonatomic, strong, readwrite) NSMapTable<NSString *, id<GMLFileProtocol>> *aMapTable;
+@property (nonatomic, strong, readwrite) NSMapTable<NSString *, id<GMLFileProtocol>> *otherMapTable;
+@property (nonatomic, strong, readwrite) NSMapTable<NSString *, id<GMLClassProtocol>> *ocMapTable;
+@property (nonatomic, strong, readwrite) NSMapTable<NSString *, id<GMLClassProtocol>> *swiftMapTable;
 
 @property (nonatomic, strong) NSMapTable<NSString *, id<GMLFileProtocol>> *cacheXibMapTable;
-
-@property (nonatomic, strong) NSMapTable<NSString *, id<GMLClassProtocol>> *classMapTable;
-@property (nonatomic, strong) NSMapTable<NSString *, GMLImageFileMode *> *imageMapTable;
-@property (nonatomic, strong) NSMapTable<NSString *, id<GMLFileProtocol>> *aMapTable;
-@property (nonatomic, strong) NSMapTable<NSString *, id<GMLFileProtocol>> *otherMapTable;
 
 @end
 
 @implementation GMLProjectMode
+
+- (GMLFileMode *)addSwiftHeaderFile:(id<GMLFileProtocol>)swiftHeaderFile {
+    if ([swiftHeaderFile isKindOfClass:[GMLFileMode class]]) {
+        _swiftHeaderFile = swiftHeaderFile;
+    }else {
+        _swiftHeaderFile = [[GMLFileMode alloc] initWithPathURL:swiftHeaderFile.pathURL];
+    }
+    return _swiftHeaderFile;
+}
 
 - (id<GMLFileProtocol>)addFile:(id<GMLFileProtocol>)file {
     GMLFileType fileType = file.pathURL.fileType;
     switch (fileType) {
         case GMLFileTypeH:
         case GMLFileTypeM:
-        case GMLFileTypeMM:
-        case GMLFileTypeSwift:
-        case GMLFileTypeXib: {
-            [self addClassRelationFile:file type:fileType];
+        case GMLFileTypeMM: {
+            [self addOCRelationFile:file type:fileType];
         }
             break;
         case GMLFileTypeJPG:
         case GMLFileTypePNG:
         case GMLFileTypeGIF: {
             [self addImageRelationFile:file type:fileType];
+        }
+            break;
+        case GMLFileTypeSwift: {
+            [self addSwiftRelationFile:file type:fileType];
+        }
+            break;
+        case GMLFileTypeXib: {
+            [self addXibRelationFile:file type:fileType];
         }
             break;
         case GMLFileTypeA: {
@@ -79,38 +95,75 @@
     return folder;
 }
 
-- (void)addClassRelationFile:(id<GMLFileProtocol>)file type:(GMLFileType)type {
+- (void)addOCRelationFile:(id<GMLFileProtocol>)file type:(GMLFileType)type {
     NSString *fileName = [[file.pathURL lastPathComponent] stringByDeletingPathExtension];
-    id<GMLClassProtocol> classModel = [self.classMapTable objectForKey:fileName];
+    id<GMLClassProtocol> classModel = [self.ocMapTable objectForKey:fileName];
     if (classModel == nil) {
         switch (type) {
-            case GMLFileTypeSwift: {
-                classModel = GMLSwiftClassFileMode.new;
-            }
-                break;
             case GMLFileTypeH:
+                if ([fileName hasSuffix:@"-Bridging-Header"]) {
+                    _swiftBridgingFileMode = [[GMLFileMode alloc] initWithPathURL:file.pathURL];
+                    return;
+                }
             case GMLFileTypeM:
             case GMLFileTypeMM: {
                 classModel = GMLClassFileMode.new;
-            }
-                break;
-            case GMLFileTypeXib: {
-                [self.cacheXibMapTable setObject:file forKey:fileName];
             }
                 break;
             default:
                 return;
         }
         if (classModel) {
-            id<GMLFileProtocol> xibFile = [_cacheXibMapTable objectForKey:fileName];
-            if (xibFile) {
-                [classModel addFile:xibFile];
-                [_cacheXibMapTable removeObjectForKey:fileName];
+            if (_cacheXibMapTable.count > 0) {
+                [self addCacheXibToClass:classModel name:fileName];
             }
-            [self.classMapTable setObject:classModel forKey:fileName];
+            [self.ocMapTable setObject:classModel forKey:fileName];
         }
     }
     [classModel addFile:file];
+}
+
+- (void)addSwiftRelationFile:(id<GMLFileProtocol>)file type:(GMLFileType)type {
+    NSString *fileName = [[file.pathURL lastPathComponent] stringByDeletingPathExtension];
+    id<GMLClassProtocol> classModel = [self.swiftMapTable objectForKey:fileName];
+    if (classModel == nil) {
+        switch (type) {
+            case GMLFileTypeSwift: {
+                classModel = GMLSwiftClassFileMode.new;
+            }
+                break;
+            default:
+                return;
+        }
+        if (classModel) {
+            if (_cacheXibMapTable.count > 0) {
+                [self addCacheXibToClass:classModel name:fileName];
+            }
+            [self.swiftMapTable setObject:classModel forKey:fileName];
+        }
+    }
+    [classModel addFile:file];
+}
+
+- (void)addXibRelationFile:(id<GMLFileProtocol>)file type:(GMLFileType)type {
+    NSString *fileName = [[file.pathURL lastPathComponent] stringByDeletingPathExtension];
+    
+    BOOL (^addXib) (NSMapTable *) = ^(NSMapTable *mapTable) {
+        id<GMLClassProtocol> classModel = [mapTable objectForKey:fileName];
+        if (classModel != nil) {
+            [classModel addFile:file];
+            return YES;
+        }
+        return NO;
+    };
+    
+    if (addXib(_ocMapTable)) {
+        return;
+    }else if (addXib(_swiftMapTable)) {
+        return;
+    }else {
+        [self.cacheXibMapTable setObject:file forKey:fileName];
+    }
 }
 
 - (void)addImageRelationFile:(id<GMLFileProtocol>)file type:(GMLFileType)type {
@@ -123,38 +176,54 @@
     [imageModel addFile:file];
 }
 
-#pragma mark - Getter & Setter
-- (NSMapTable<NSString *, id<GMLClassProtocol>> *)classMapTable {
-    if (_classMapTable == nil) {
-        _classMapTable = [[NSMapTable alloc] initWithKeyOptions:NSMapTableWeakMemory valueOptions:NSMapTableWeakMemory capacity:0];
+- (BOOL)addCacheXibToClass:(id<GMLClassProtocol>)targetClass name:(NSString *)name {
+    id<GMLFileProtocol> xibFile = [_cacheXibMapTable objectForKey:name];
+    if (xibFile) {
+        [targetClass addFile:xibFile];
+        [_cacheXibMapTable removeObjectForKey:name];
+        return YES;
     }
-    return _classMapTable;
+    return NO;
+}
+
+#pragma mark - Getter & Setter
+- (NSMapTable<NSString *,id<GMLClassProtocol>> *)ocMapTable {
+    if (_ocMapTable == nil) {
+        _ocMapTable = [[NSMapTable alloc] initWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableStrongMemory capacity:0];
+    }
+    return _ocMapTable;
+}
+- (NSMapTable<NSString *,id<GMLClassProtocol>> *)swiftMapTable {
+    if (_swiftMapTable == nil) {
+        _swiftMapTable = [[NSMapTable alloc] initWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableStrongMemory capacity:0];
+    }
+    return _swiftMapTable;
 }
 
 - (NSMapTable<NSString *, GMLImageFileMode *> *)imageMapTable {
     if (_imageMapTable == nil) {
-        _imageMapTable = [[NSMapTable alloc] initWithKeyOptions:NSMapTableWeakMemory valueOptions:NSMapTableWeakMemory capacity:0];
+        _imageMapTable = [[NSMapTable alloc] initWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableStrongMemory capacity:0];
     }
     return _imageMapTable;
 }
 
 - (NSMapTable<NSString *, id<GMLFileProtocol>> *)aMapTable {
     if (_aMapTable == nil) {
-        _aMapTable = [[NSMapTable alloc] initWithKeyOptions:NSMapTableWeakMemory valueOptions:NSMapTableWeakMemory capacity:0];
+        _aMapTable = [[NSMapTable alloc] initWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableStrongMemory capacity:0];
     }
     return _aMapTable;
 }
 
 - (NSMapTable<NSString *,id<GMLFileProtocol>> *)otherMapTable {
     if (_otherMapTable == nil) {
-        _otherMapTable = [[NSMapTable alloc] initWithKeyOptions:NSMapTableWeakMemory valueOptions:NSMapTableWeakMemory capacity:0];
+        _otherMapTable = [[NSMapTable alloc] initWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableStrongMemory capacity:0];
     }
     return _otherMapTable;
 }
 
 - (NSMapTable<NSString *,id<GMLFileProtocol>> *)cacheXibMapTable {
     if (_cacheXibMapTable == nil) {
-        _cacheXibMapTable = [[NSMapTable alloc] initWithKeyOptions:NSMapTableWeakMemory valueOptions:NSMapTableWeakMemory capacity:0];
+        _cacheXibMapTable = [[NSMapTable alloc] initWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableStrongMemory capacity:0];
     }
     return _cacheXibMapTable;
 }
@@ -164,13 +233,6 @@
         _pchFileMode = GMLPCHFileMode.new;
     }
     return _pchFileMode;
-}
-
-- (GMLSwiftBridgingFileMode *)swiftBridgingFileMode {
-    if (_swiftBridgingFileMode == nil) {
-        _swiftBridgingFileMode = GMLSwiftBridgingFileMode.new;
-    }
-    return _swiftBridgingFileMode;
 }
 
 - (GMLStoryboardFileMode *)storyboardFileMode {

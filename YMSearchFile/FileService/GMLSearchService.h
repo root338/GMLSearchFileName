@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 - (BOOL)service:(GMLSearchService *)service shouldIgnoreURL:(NSURL *)pathURL;
-- (BOOL)service:(GMLSearchService *)service projectMode:(GMLProjectMode *)projectMode;
+- (BOOL)service:(GMLSearchService *)service folder:(id<GMLFolderProtocol>)folder;
 
 @end
 
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<GMLSearchServiceDelegate> delegate;
 
-- (nullable id<GMLFolderProtocol>)searchFolderPathURL:(NSURL *)pathURL;
+- (nullable GMLProjectMode *)searchFolderPathURL:(NSURL *)pathURL isNeedFolderStruct:(BOOL)isNeedFolderStruct;
 //- (nullable id<GMLFolderProtocol>)searchFolderPathURL:(NSURL *)pathURL options:(NSDirectoryEnumerationOptions)options;
 
 @end

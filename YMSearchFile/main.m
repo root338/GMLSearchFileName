@@ -12,15 +12,13 @@
 #import "YMXcodeProjectFileService.h"
 
 #import "GMLIOSProjectService.h"
-#import "GMLSearchService.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
-        GMLSearchService *searchService = GMLSearchService.new;
-        id<GMLFolderProtocol> folder = [searchService searchFolderPathURL:[NSURL fileURLWithPath:@"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity"]];
+        GMLIOSProjectService *projectService = GMLIOSProjectService.new;
+        [projectService traversingPath:[NSURL fileURLWithPath:@"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity"]];
         
-        NSLog(@"");
 //        NSString *userFolderPath = @"/Users/ml";
 //        NSString *projectFolderPath = [userFolderPath stringByAppendingPathComponent:@"dev/yuemei_mainAPP/QuickAskCommunity"];
 //

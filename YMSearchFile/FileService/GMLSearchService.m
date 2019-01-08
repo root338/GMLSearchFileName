@@ -21,7 +21,9 @@ static NSDirectoryEnumerator<NSURL *> * enumerator(NSURL *targetURL, NSDirectory
 }
 
 @interface GMLSearchService ()
-
+{
+    BOOL _isNeedFolderStruct;
+}
 
 @property (nonatomic, strong) GMLProjectMode *(^projectMode) (void);
 
@@ -29,57 +31,67 @@ static NSDirectoryEnumerator<NSURL *> * enumerator(NSURL *targetURL, NSDirectory
 
 @implementation GMLSearchService
 
-- (id<GMLFolderProtocol>)searchFolderPathURL:(NSURL *)pathURL {
+- (GMLProjectMode *)searchFolderPathURL:(NSURL *)pathURL isNeedFolderStruct:(BOOL)isNeedFolderStruct {
     
     GMLProjectMode *projectMode = GMLProjectMode.new;
     self.projectMode = ^GMLProjectMode *{
         return projectMode;
     };
+    _isNeedFolderStruct = isNeedFolderStruct && [self.delegate respondsToSelector:@selector(service:folder:)];
+    
     id<GMLFolderProtocol> folder = [self _searchFolderPathURL:pathURL];
     self.projectMode = nil;
     
-    return folder;
+    if (_isNeedFolderStruct) {
+        [self.delegate service:self folder:folder];
+    }
+    
+    return projectMode;
 }
 
 - (id<GMLFolderProtocol>)_searchFolderPathURL:(NSURL *)pathURL {
-    
-    BOOL isIgnore = NO;
-    if ([self.delegate respondsToSelector:@selector(service:shouldIgnoreURL:)]) {
-        isIgnore = [self.delegate service:self shouldIgnoreURL:pathURL];
-    }
-    if (isIgnore) {
-        return nil;
-    }
-    NSDirectoryEnumerator<NSURL *> *directoryEnumeration = enumerator(pathURL, GMLDirectorySkipHideAndPackage);
-    if (directoryEnumeration == nil) {
-        return nil;
-    }
-    GMLFolderMode *folderMode = [[GMLFolderMode alloc] initWithPathURL:pathURL];
-    if (folderMode == nil) {
-        return nil;
-    }
-    for (NSURL *targetURL in directoryEnumeration) {
-        GMLPathType pathType = targetURL.pathType;
-        switch (pathType) {
-            case GMLPathTypeNotFound:
-                continue;
-            case GMLPathTypeFolder: {
-                id<GMLFolderProtocol> tmpFolder = [self _searchFolderPathURL:targetURL];
-                if (tmpFolder) {
-                    [folderMode addFolder:tmpFolder];
-                }
-            }
-                break;
-            case GMLPathTypeFile: {
-                id<GMLFileProtocol> fileMode = [self createFileWithURL:targetURL];
-                if (fileMode) {
-                    [folderMode addFile:fileMode];
-                }
-            }
-                break;
+    @autoreleasepool {
+        BOOL isIgnore = NO;
+        if ([self.delegate respondsToSelector:@selector(service:shouldIgnoreURL:)]) {
+            isIgnore = [self.delegate service:self shouldIgnoreURL:pathURL];
         }
+        if (isIgnore) {
+            return nil;
+        }
+        NSDirectoryEnumerator<NSURL *> *directoryEnumeration = enumerator(pathURL, GMLDirectorySkipHideAndPackage);
+        if (directoryEnumeration == nil) {
+            return nil;
+        }
+        GMLFolderMode *folderMode = nil;
+        if (_isNeedFolderStruct) {
+            folderMode = [[GMLFolderMode alloc] initWithPathURL:pathURL];
+            if (folderMode == nil) {
+                return nil;
+            }
+        }
+        for (NSURL *targetURL in directoryEnumeration) {
+            GMLPathType pathType = targetURL.pathType;
+            switch (pathType) {
+                case GMLPathTypeNotFound:
+                    continue;
+                case GMLPathTypeFolder: {
+                    id<GMLFolderProtocol> tmpFolder = [self _searchFolderPathURL:targetURL];
+                    if (tmpFolder) {
+                        [folderMode addFolder:tmpFolder];
+                    }
+                }
+                    break;
+                case GMLPathTypeFile: {
+                    id<GMLFileProtocol> fileMode = [self createFileWithURL:targetURL];
+                    if (fileMode) {
+                        [folderMode addFile:fileMode];
+                    }
+                }
+                    break;
+            }
+        }
+        return folderMode;
     }
-    return folderMode;
 }
 
 - (nullable id<GMLFileProtocol>)createFileWithURL:(NSURL *)targetURL {

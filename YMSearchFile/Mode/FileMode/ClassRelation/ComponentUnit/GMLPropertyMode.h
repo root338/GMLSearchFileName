@@ -1,5 +1,5 @@
 //
-//  GMLSwiftBridgingFileMode.h
+//  GMLPropertyMode.h
 //  YMSearchFile
 //
 //  Created by apple on 2019/1/8.
@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GMLFileSetProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GMLSwiftBridgingFileMode : NSObject<GMLFileSetProtocol>
+@interface GMLPropertyMode : NSObject
+
+
 
 @end
 

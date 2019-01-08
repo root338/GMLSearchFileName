@@ -7,83 +7,29 @@
 //
 
 #import "GMLIOSProjectService.h"
-#import "YMFileMode.h"
-#import "GMLProjectParser.h"
-#import "NSURL+GMLPathAdd.h"
+
+#import "GMLSearchService.h"
 
 @interface GMLIOSProjectService ()
 
-@property (nonatomic, strong, readwrite) NSURL *projectPath;
+@property (nonatomic, strong) GMLProjectMode *projectMode;
+@property (nonatomic, strong) GMLSearchService *searchService;
 
-@property (nonatomic, strong) GMLProjectParser *folderMode;
-
-@property (nonatomic, strong) GMLProjectParser *projectParser;
 @end
 
 @implementation GMLIOSProjectService
 
-- (instancetype)initWithProjectPath:(NSString *)projectPath {
-    return [self initWithProjectURL:[NSURL fileURLWithPath:projectPath]];
+- (void)traversingPath:(NSURL *)pathURL {
+    self.projectMode = [self.searchService searchFolderPathURL:pathURL isNeedFolderStruct:NO];
 }
 
-- (instancetype)initWithProjectURL:(NSURL *)projectURL {
-    GMLPathType pathType = projectURL.pathType;
-    if (pathType != GMLPathTypeFolder) {
-        return nil;
+- (GMLSearchService *)searchService {
+    if (_searchService == nil) {
+        _searchService = GMLSearchService.new;
     }
-    self = [super init];
-    if (self) {
-        _projectPath = projectURL;
-        [self.projectParser parserWithProjectPath:projectURL];
-    }
-    return self;
+    return _searchService;
 }
 
-//- (YMFileMode *)fileModeAtPath:(NSString *)path {
-//    id obj = [self modeAtPath:path];
-//    if ([obj isKindOfClass:[YMFileMode class]]) {
-//        return obj;
-//    }
-//    return nil;
-//}
-//
-//- (GMLProjectParser *)folderModeAtPath:(NSString *)path {
-//    
-//    id obj = [self modeAtPath:path];
-//    if ([obj isKindOfClass:[GMLProjectParser class]]) {
-//        return obj;
-//    }
-//    return nil;
-//}
-//
-//- (BOOL)getModeAtPath:(NSString *)path result:(void (NS_NOESCAPE ^) (GMLProjectParser * folderMode, YMFileMode *fileMode))result {
-//    if (_fileMode != nil && [_fileMode containsPath:path]) {
-//        return
-//    }
-//}
 
-//- (BOOL)createModeAtPath:(NSString *)path result:(void (NS_NOESCAPE ^) (GMLProjectParser * folderMode, YMFileMode *fileMode))result {
-//    BOOL isDirectory;
-//    BOOL isExists = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
-//    if (!isExists) {
-//        return NO;;
-//    }
-//    GMLProjectParser *folderMode = nil;
-//    YMFileMode *fildMode = nil;
-//    if (isDirectory) {
-//        folderMode = [[GMLProjectParser alloc] initWithFolderPath:path];
-//    }else {
-//        fildMode = [YMFileMode createWithFilePath:path];
-//    }
-//    !result?: result(folderMode, fildMode);
-//    return YES;
-//}
-
-- (GMLProjectParser *)projectParser {
-    if (_projectParser == nil) {
-        _projectParser = GMLProjectParser.new;
-    }
-    return _projectParser;
-}
 
 @end
