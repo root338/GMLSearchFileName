@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
-@protocol GMLClassProtocol;
+@protocol GMLClassFileProtocol;
 @class GMLClassService;
 
 @protocol GMLClassServiceDelegate <NSObject>
@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GMLClassService : NSObject
 
-- (void)parserClass:(id<GMLClassProtocol>)targetClass;
+- (void)parserClass:(id<GMLClassFileProtocol>)targetClass;
 
 @end
 

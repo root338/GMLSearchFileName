@@ -93,10 +93,7 @@
 
 - (void)defaultParserWithURL:(NSURL *)URL {
     
-    NSArray<NSURL *> *contentURLs = [self deployContentURLsWithURL:URL];
-    for (NSURL *targetURL in contentURLs) {
-        
-    }
+    
 }
 
 - (void)handleURL:(NSURL *)url isDirectory:(NSNumber *)isDirectory {

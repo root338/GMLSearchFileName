@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable GMLProjectMode *)searchFolderPathURL:(NSURL *)pathURL isNeedFolderStruct:(BOOL)isNeedFolderStruct;
 //- (nullable id<GMLFolderProtocol>)searchFolderPathURL:(NSURL *)pathURL options:(NSDirectoryEnumerationOptions)options;
 
+
 @end
 
 NS_ASSUME_NONNULL_END

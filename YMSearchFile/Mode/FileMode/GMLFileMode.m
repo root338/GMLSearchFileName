@@ -34,4 +34,11 @@
     return self;
 }
 
+- (NSString *)name {
+    if (_name == nil) {
+        _name = [[_pathURL lastPathComponent] stringByDeletingPathExtension];
+    }
+    return _name;
+}
+
 @end

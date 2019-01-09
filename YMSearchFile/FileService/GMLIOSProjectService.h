@@ -17,7 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// swift 头文件
 @property (nonatomic, strong) NSString *swiftHeaderName;
 
+@property (nonatomic, strong) NSArray<NSURL *> *canDeletedFolders;
+
 - (void)traversingPath:(NSURL *)pathURL;
+
+- (void)tryToDelete;
 
 @end
 

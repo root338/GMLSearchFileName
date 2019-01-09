@@ -1,17 +1,18 @@
 //
-//  GMLPCHFileMode.h
+//  GMLFileProtocol.h
 //  YMSearchFile
 //
 //  Created by apple on 2019/1/8.
 //  Copyright © 2019 apple. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "GMLFileSetProtocol.h"
+#import "GMLPathProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GMLPCHFileMode : NSObject<GMLFileSetProtocol>
+@protocol GMLFileProtocol <GMLPathProtocol>
+
+@property (nonatomic, strong, readonly) NSString *name;
 
 @end
 

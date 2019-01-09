@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSDictionary<NSString *, GMLFolderGroupingMode *> *)accordingToBasePathGroupingFileWithFileModeSet:(NSSet<YMFileMode *> *)fileModeSet basePathSet:(NSSet<NSString *> *)basePathSet ignoreBasePathSet:(nullable NSSet<NSString *> *)ignoreBasePathSet;
 
-- (NSSet<YMFileMode *> *)accordingToBasePathGroupingFileWithFileModeSet:(NSSet<YMFileMode *> *)fileModeSet shouldDeletePathSet:(nullable NSSet<NSString *> *)shouldDeletePathSet;
+- (NSSet<YMFileMode *> *)accordingToBasePathGroupingFileWithFileModeSet:(nullable NSSet<YMFileMode *> *)fileModeSet shouldDeletePathSet:(nullable NSSet<NSString *> *)shouldDeletePathSet;
 
 @end
 

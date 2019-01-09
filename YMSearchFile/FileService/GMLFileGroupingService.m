@@ -85,7 +85,7 @@
     return needDeleteSet;
 }
 
-- (BOOL)isAddCanDeletedFileMode:(YMFileMode *)fileMode canNotDeletePathSet:(nonnull NSSet<NSString *> *)canNotDeletePathSet shouldDeletePathSet:(nullable NSSet<NSString *> *)shouldDeletePathSet didCacheFileModes:(NSHashTable *)didCacheFileModes {
+- (BOOL)isAddCanDeletedFileMode:(YMFileMode *)fileMode canNotDeletePathSet:(NSSet<NSString *> *)canNotDeletePathSet shouldDeletePathSet:(nullable NSSet<NSString *> *)shouldDeletePathSet didCacheFileModes:(NSHashTable *)didCacheFileModes {
     
     NSString *key = [self keyWithFileMode:fileMode basePathSet:shouldDeletePathSet];
     if (key == nil) {

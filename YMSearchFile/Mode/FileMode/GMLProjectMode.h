@@ -8,27 +8,30 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol GMLFileProtocol, GMLFolderProtocol, GMLClassProtocol;
+@protocol GMLFileProtocol, GMLFolderProtocol, GMLClassFileProtocol;
 @class GMLPCHFileMode, GMLFileMode, GMLStoryboardFileMode, GMLImageFileMode;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GMLProjectMode : NSObject
 
-@property (nullable, nonatomic, strong, readonly) GMLFileMode *swiftHeaderFile;
-@property (nullable, nonatomic, strong, readonly) GMLPCHFileMode *pchFileMode;
-@property (nullable, nonatomic, strong, readonly) GMLFileMode *swiftBridgingFileMode;
+@property (nullable, nonatomic, strong, readonly) id<GMLClassFileProtocol> pchClassFile;
+@property (nullable, nonatomic, strong, readonly) id<GMLClassFileProtocol> swiftBridgingClassFile;
+
 @property (nullable, nonatomic, strong, readonly) GMLStoryboardFileMode *storyboardFileMode;
 
 @property (nonatomic, strong, readonly) NSMapTable<NSString *, GMLImageFileMode *> *imageMapTable;
 @property (nonatomic, strong, readonly) NSMapTable<NSString *, id<GMLFileProtocol>> *aMapTable;
 @property (nonatomic, strong, readonly) NSMapTable<NSString *, id<GMLFileProtocol>> *otherMapTable;
 
-@property (nonatomic, strong, readonly) NSMapTable<NSString *, id<GMLClassProtocol>> *ocMapTable;
-@property (nonatomic, strong, readonly) NSMapTable<NSString *, id<GMLClassProtocol>> *swiftMapTable;
+@property (nonatomic, strong, readonly) NSMapTable<NSString *, id<GMLClassFileProtocol>> *ocMapTable;
+@property (nonatomic, strong, readonly) NSMapTable<NSString *, id<GMLClassFileProtocol>> *swiftMapTable;
 
-- (nullable GMLFileMode *)addSwiftHeaderFile:(id<GMLFileProtocol>)swiftHeaderFile;
 - (nullable id<GMLFileProtocol>)addFile:(id<GMLFileProtocol>)file;
 - (nullable id<GMLFolderProtocol>)addFolder:(id<GMLFolderProtocol>)folder;
+
+- (void)addIncludeSwiftHeaderClassFile:(id<GMLClassFileProtocol>)classFile;
+
+- (nullable id<GMLClassFileProtocol>)fileAtName:(NSString *)name;
 
 @end
 

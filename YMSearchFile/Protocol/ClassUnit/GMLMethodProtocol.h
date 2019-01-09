@@ -1,16 +1,16 @@
 //
-//  GMLFileProtocol.h
+//  GMLMethodProtocol.h
 //  YMSearchFile
 //
-//  Created by apple on 2019/1/8.
+//  Created by apple on 2019/1/9.
 //  Copyright © 2019 apple. All rights reserved.
 //
 
-#import "GMLPathProtocol.h"
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol GMLFileProtocol <GMLPathProtocol>
+@protocol GMLMethodProtocol <NSObject>
 
 @end
 

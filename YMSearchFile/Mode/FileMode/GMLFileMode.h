@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GMLFileMode : NSObject<GMLFileProtocol>
 
+@property (nonatomic, strong) NSString *name;
+
 @property (nonatomic, assign, readonly) GMLFileType fileType;
 
 @end

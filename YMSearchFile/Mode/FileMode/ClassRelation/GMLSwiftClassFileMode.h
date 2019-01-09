@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GMLClassProtocol.h"
+#import "GMLClassFileProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GMLSwiftClassFileMode : NSObject<GMLClassProtocol>
+@interface GMLSwiftClassFileMode : NSObject<GMLClassFileProtocol>
 
 @end
 

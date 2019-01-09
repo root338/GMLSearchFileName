@@ -10,9 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+//@protocol 
+
 @interface GMLPropertyMode : NSObject
 
-
+//- (BOOL)includeClass:(id<>)
 
 @end
 
