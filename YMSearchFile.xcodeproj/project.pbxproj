@@ -28,6 +28,7 @@
 		187ED69B21E59F5D0000CF7B /* GMLClassMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 187ED69A21E59F5D0000CF7B /* GMLClassMode.m */; };
 		187ED6A721E5B36E0000CF7B /* GMLClassBaseMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 187ED6A621E5B36E0000CF7B /* GMLClassBaseMode.m */; };
 		187ED6AA21E5BE400000CF7B /* GMLClassFileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 187ED6A921E5BE400000CF7B /* GMLClassFileService.m */; };
+		187ED6C121E8847C0000CF7B /* GMLClassMethodService.m in Sources */ = {isa = PBXBuildFile; fileRef = 187ED6C021E8847C0000CF7B /* GMLClassMethodService.m */; };
 		18BB152421DF25540043CBA6 /* YMProjectMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BB152321DF25540043CBA6 /* YMProjectMode.m */; };
 		6D88417621E06C7F00DB8B27 /* GMLFileGroupingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88417521E06C7F00DB8B27 /* GMLFileGroupingService.m */; };
 		6D88417921E06D6500DB8B27 /* GMLDeleteFileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88417821E06D6500DB8B27 /* GMLDeleteFileService.m */; };
@@ -109,6 +110,8 @@
 		187ED6A621E5B36E0000CF7B /* GMLClassBaseMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLClassBaseMode.m; sourceTree = "<group>"; };
 		187ED6A821E5BE400000CF7B /* GMLClassFileService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLClassFileService.h; sourceTree = "<group>"; };
 		187ED6A921E5BE400000CF7B /* GMLClassFileService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLClassFileService.m; sourceTree = "<group>"; };
+		187ED6BF21E8847C0000CF7B /* GMLClassMethodService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLClassMethodService.h; sourceTree = "<group>"; };
+		187ED6C021E8847C0000CF7B /* GMLClassMethodService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLClassMethodService.m; sourceTree = "<group>"; };
 		18BB152221DF25540043CBA6 /* YMProjectMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMProjectMode.h; sourceTree = "<group>"; };
 		18BB152321DF25540043CBA6 /* YMProjectMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMProjectMode.m; sourceTree = "<group>"; };
 		6D88417421E06C7F00DB8B27 /* GMLFileGroupingService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLFileGroupingService.h; sourceTree = "<group>"; };
@@ -311,6 +314,8 @@
 				187ED68B21E4A1620000CF7B /* GMLClassService.m */,
 				187ED6A821E5BE400000CF7B /* GMLClassFileService.h */,
 				187ED6A921E5BE400000CF7B /* GMLClassFileService.m */,
+				187ED6BF21E8847C0000CF7B /* GMLClassMethodService.h */,
+				187ED6C021E8847C0000CF7B /* GMLClassMethodService.m */,
 			);
 			path = FileService;
 			sourceTree = "<group>";
@@ -410,6 +415,7 @@
 				6DBB5A5321E1C4D200305AB9 /* GMLIOSProjectService.m in Sources */,
 				6D88418121E088AC00DB8B27 /* GMLLogService.m in Sources */,
 				6D88418721E0DAAA00DB8B27 /* GMLFolderGroupingMode.m in Sources */,
+				187ED6C121E8847C0000CF7B /* GMLClassMethodService.m in Sources */,
 				6D88418421E0A1B400DB8B27 /* GMLFilterService.m in Sources */,
 				187ED68821E48DB40000CF7B /* GMLFileMode.m in Sources */,
 				1828F94121DF000400ADE215 /* YMParserFileService.m in Sources */,

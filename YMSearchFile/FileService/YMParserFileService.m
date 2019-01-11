@@ -12,7 +12,6 @@
 @interface YMParserFileService ()
 
 @property (nonatomic, strong) NSRegularExpression *regularExpression;
-
 @end
 
 @implementation YMParserFileService
@@ -34,7 +33,7 @@
             NSRange range = [importText rangeOfString:@"\""];
             NSString *fileName = [importText substringFromIndex:range.location + 1];
             fileName = [fileName substringToIndex:fileName.length - 3];
-            if (![fileName isEqualToString:originFileName]) {
+            if (![fileName isEqualToString:originFileName] && ![fileName isEqualToString:@"YMRequestManager+YMRequest"] && ![fileName isEqualToString:@"DataParser"]) {
                 [includeFileNameList addObject:fileName];
             }
             if ([includeFileNameList containsObject:@"YMAnalytics"]) {
