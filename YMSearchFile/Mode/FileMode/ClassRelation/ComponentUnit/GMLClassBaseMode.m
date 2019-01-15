@@ -80,7 +80,7 @@
 
 - (NSMapTable<NSString *,id<GMLPropertyProtocol>> *)implementationPropertyMapTable {
     if (_implementationPropertyMapTable == nil) {
-        _implementationPropertyMapTable = [[NSMapTable alloc] initWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableStrongMemory capacity:0];;
+        _implementationPropertyMapTable = [[NSMapTable alloc] initWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableStrongMemory capacity:0];
     }
     return _implementationPropertyMapTable;
 }

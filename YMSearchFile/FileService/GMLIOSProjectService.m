@@ -18,6 +18,7 @@
 @property (nonatomic, strong) GMLSearchService *searchService;
 @property (nonatomic, strong) GMLClassFileService *classFileService;
 @property (nonatomic, strong) NSMapTable<NSURL *, NSHashTable<id<GMLClassFileProtocol>> *> *canDeletedClassFileMap;
+
 @end
 
 @implementation GMLIOSProjectService
@@ -36,18 +37,18 @@
     }
 }
 
-- (void)tryToDelete {
-    NSMutableSet<id<GMLClassFileProtocol>> *canDeletedClassFileSet = NSMutableSet.set;
-    if (_canDeletedClassFileMap) {
-        NSArray<NSHashTable<id<GMLClassFileProtocol>> *> *values = NSAllMapTableValues(_canDeletedClassFileMap);
-        for (NSHashTable<id<GMLClassFileProtocol>> *hashTable in values) {
-            [canDeletedClassFileSet unionSet:[NSSet setWithArray:hashTable.allObjects]];
-        }
-    }
-    for (id<GMLClassFileProtocol> waitingDeleted in canDeletedClassFileSet) {
-        
-    }
-}
+//- (void)tryToDelete {
+//    NSMutableSet<id<GMLClassFileProtocol>> *canDeletedClassFileSet = NSMutableSet.set;
+//    if (_canDeletedClassFileMap) {
+//        NSArray<NSHashTable<id<GMLClassFileProtocol>> *> *values = NSAllMapTableValues(_canDeletedClassFileMap);
+//        for (NSHashTable<id<GMLClassFileProtocol>> *hashTable in values) {
+//            [canDeletedClassFileSet unionSet:[NSSet setWithArray:hashTable.allObjects]];
+//        }
+//    }
+//    for (id<GMLClassFileProtocol> waitingDeleted in canDeletedClassFileSet) {
+//
+//    }
+//}
 
 #pragma mark - GMLClassFileServiceDelegate
 - (id<GMLClassFileProtocol>)service:(GMLClassFileService *)service sourceClassFile:(nonnull id<GMLClassFileProtocol>)sourceClassFile importFileName:(nonnull NSString *)importFileName {

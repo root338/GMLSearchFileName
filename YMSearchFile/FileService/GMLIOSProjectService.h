@@ -21,8 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)traversingPath:(NSURL *)pathURL;
 
-- (void)tryToDelete;
-
 @end
 
 NS_ASSUME_NONNULL_END
