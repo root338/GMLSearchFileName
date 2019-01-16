@@ -15,7 +15,8 @@ int main(int argc, const char * argv[]) {
         // insert code here...
         
         GMLRenameService *renameService = GMLRenameService.new;
-        renameService.searchPath = @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/HomePage/Controller/MainController";
+//        renameService.searchPath = @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/HomePage/Controller/MainController";
+        renameService.searchPath = @"/Users/ml/dev/yuemeiProject/QuickAskCommunity/QuickAskCommunity/Classes/Module/HomePage/Controller/DiaryController";
         [renameService run];
     }
     return 0;

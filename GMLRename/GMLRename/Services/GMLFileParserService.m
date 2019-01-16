@@ -7,9 +7,12 @@
 //
 
 #import "GMLFileParserService.h"
-#import "NSString+GMLPathTools.h"
-#import "GMLFileContentService.h"
 #import "GMLTextContent.h"
+#import "GMLFileContentService.h"
+#import "GMLClassParserService.h"
+
+#import "NSString+RE.h"
+#import "NSString+GMLPathTools.h"
 
 @interface GMLFileParserService ()
 
@@ -19,14 +22,8 @@
 @property (nonatomic, strong) NSRegularExpression *findImportFileRE;
 /// 查找类
 @property (nonatomic, strong) NSRegularExpression *findClassRE;
-/// 查找属性
-@property (nonatomic, strong) NSRegularExpression *findPropertyRE;
-/// 查找方法
-@property (nonatomic, strong) NSRegularExpression *findMethodRE;
-/// 查找方法名
-@property (nonatomic, strong) NSRegularExpression *findMethodNameRE;
-/// 查找方法体
-@property (nonatomic, strong) NSRegularExpression *findMethodBodyRE;
+
+@property (nonatomic, strong) GMLClassParserService *classParserService;
 
 @end
 
@@ -65,14 +62,13 @@
 - (void)parserOCFile:(GMLTextContent *)textContent {
     
     NSString *text = textContent.ignoreNoteText;
-    [textContent addImportTextCheckingResults:[self runRE:self.findImportFileRE matchesInString:text]];
-    NSArray<NSTextCheckingResult *> *classResults = [self runRE:self.findClassRE matchesInString:text];
+    [textContent addImportTextCheckingResults:[text runRE:self.findImportFileRE]];
+    NSArray<NSTextCheckingResult *> *classResults = [text runRE:self.findClassRE];
     [textContent addClassTextCheckingResults:classResults];
     for (NSTextCheckingResult *result in classResults) {
         NSString *classText = [text substringWithRange:result.range];
+        GMLClassSet *classSet = [self.classParserService parserOCClassText:classText];
         
-//        [textContent addPropertyTextCheckingResults:[self runRE:self.findPropertyRE matchesInString:classText] inClassResult:result];
-//        [textContent addMethodTextCheckingResults:[self runRE:self.findMethodRE matchesInString:classText] inClassResult:result];
     }
 }
 
@@ -81,23 +77,24 @@
     
 }
 
-- (void)runRE:(NSRegularExpression *)targetRE matchesInString:(NSString *)string usingBlock:(void (^) (NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop))block {
-    [targetRE enumerateMatchesInString:string options:NSMatchingReportProgress range:string.rangeOfAll usingBlock:block];
-}
 
-- (NSArray<NSTextCheckingResult *> *)runRE:(NSRegularExpression *)targetRE matchesInString:(NSString *)string {
-    return [targetRE matchesInString:string options:NSMatchingReportCompletion range:string.rangeOfAll];
-}
 
 - (GMLTextContent *)textContentWithFilePath:(NSString *)filePath {
     NSString *text = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
     GMLTextContent *textContent = [[GMLTextContent alloc] initWithText:text];
-    NSArray<NSTextCheckingResult *> *noteResultList = [self runRE:self.findNoteRE matchesInString:text];
+    NSArray<NSTextCheckingResult *> *noteResultList = [text runRE:self.findNoteRE];
     noteResultList.count == 0?: [textContent addNoteTextCheckingResults:noteResultList];
     return textContent;
 }
 
 #pragma mark - Getter & Setter
+- (NSRegularExpression *)findNoteRE {
+    if (_findNoteRE == nil) {
+        NSString *pattern = @"(//[^\\\n]*)|(/\\*((?!\\*/).)*\\*/)";
+        _findNoteRE = [[NSRegularExpression alloc] initWithPattern:pattern options:NSRegularExpressionDotMatchesLineSeparators error:nil];
+    }
+    return _findNoteRE;
+}
 
 - (NSRegularExpression *)findImportFileRE {
     if (_findImportFileRE == nil) {
@@ -115,47 +112,11 @@
     return _findClassRE;
 }
 
-- (NSRegularExpression *)findPropertyRE {
-    if (_findPropertyRE == nil) {
-        NSString *pattern = @"(@property|@synthesize|@dynamic)[^;]*;";
-        _findPropertyRE = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
+- (GMLClassParserService *)classParserService {
+    if (_classParserService == nil) {
+        _classParserService = GMLClassParserService.new;
     }
-    return _findPropertyRE;
-}
-
-- (NSRegularExpression *)findMethodRE {
-    if (_findMethodRE == nil) {
-        //(?<=\{).*(?=\})
-        
-        NSString *pattern = @"[^\n\\S]*(-|\\+)[\\s]*\\(([^\\(\\)\\{\\}]|(\\([^\\(\\)\\{\\}]*\\)))*\\)[^\\{\\};/@]+[\\s]*\\{([^\\{\\}]|(\\{[^\\{\\}]*\\}))*\\}";//@"\\n[^\\S\\\n]*(-|\\+)[\\s]*\\([^\\)\\.\\(\\n]*\\)[\\s]*\\{(?<=\\{).*(?=\\})";
-        _findMethodRE = [[NSRegularExpression alloc] initWithPattern:pattern options:NSRegularExpressionDotMatchesLineSeparators error:nil];
-    }
-    return _findMethodRE;
-}
-
-- (NSRegularExpression *)findMethodNameRE {
-    if (_findMethodNameRE == nil) {
-        // 参考链接 https://m.aliyun.com/yunqi/ask/16378/
-        NSString *pattern = @"[^\n\\S]*(-|\\+)[\\s]*\\(([^\\(\\)\\{\\}]|(\\([^\\(\\)\\{\\}]*\\)))*\\)[^\\{\\};/@]+";
-        _findMethodNameRE = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
-    }
-    return _findMethodNameRE;
-}
-
-- (NSRegularExpression *)findNoteRE {
-    if (_findNoteRE == nil) {
-        NSString *pattern = @"(//[^\\\n]*)|(/\\*((?!\\*/).)*\\*/)";
-        _findNoteRE = [[NSRegularExpression alloc] initWithPattern:pattern options:NSRegularExpressionDotMatchesLineSeparators error:nil];
-    }
-    return _findNoteRE;
-}
-
-- (NSRegularExpression *)findMethodBodyRE {
-    if (_findMethodBodyRE == nil) {
-        NSString *pattern = @"\\{([^\\{\\}]|(\\{[^\\{\\}]*\\}))*\\}";
-        _findMethodBodyRE = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
-    }
-    return _findMethodBodyRE;
+    return _classParserService;
 }
 
 @end

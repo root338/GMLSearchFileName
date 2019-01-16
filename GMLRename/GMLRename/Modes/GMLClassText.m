@@ -7,44 +7,22 @@
 //
 
 #import "GMLClassText.h"
-#import "GMLFileDefineTypeHeader.h"
+#import "GMLClassExtensionText.h"
 
 @interface GMLClassText ()
 
-@property (nonatomic, strong, readwrite) NSString *mClassName;
 @property (nonatomic, strong, readwrite) NSString *mSuperClassName;
-
-@property (nonatomic, strong, readwrite) NSString *text;
-
-@property (nonatomic, strong) NSMutableDictionary<NSNumber *, NSArray<NSTextCheckingResult *> *> *findResultDict;
 
 @end
 
 @implementation GMLClassText
 
-- (instancetype)initWithClassName:(NSString *)className superClassName:(nonnull NSString *)superClassName text:(nonnull NSString *)text {
-    self = [super init];
+- (instancetype)initWithClassSection:(GMLClassSection)classSection name:(NSString *)className superClassName:(NSString *)superClassName result:(NSTextCheckingResult *)result {
+    self = [super initWithClassSection:classSection name:className result:result];
     if (self) {
-        _mClassName = className;
         _mSuperClassName = superClassName;
-        _text = text;
     }
     return self;
-}
-
-- (void)addPropertyTextCheckingResults:(NSArray<NSTextCheckingResult *> *)textCheckingResults {
-    self.findResultDict[@(GMLClassTextUnitProperty)] = textCheckingResults;
-}
-
-- (void)addMethodTextCheckingResults:(NSArray<NSTextCheckingResult *> *)textCheckingResults {
-    self.findResultDict[@(GMLClassTextUnitMethod)] = textCheckingResults;
-}
-
-- (NSMutableDictionary<NSNumber *,NSArray<NSTextCheckingResult *> *> *)findResultDict {
-    if (_findResultDict == nil) {
-        _findResultDict = NSMutableDictionary.dictionary;
-    }
-    return _findResultDict;
 }
 
 @end

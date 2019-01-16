@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
-@class GMLClassText;
+@class GMLClassSet;
 
 @interface GMLTextContent : NSObject
 
@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 添加 typedef 声明的类型查询结果列表
 - (void)addTypedefTextCheckingResults:(NSArray<NSTextCheckingResult *> *)textCheckingResults;
 /// 添加类信息
-- (void)addClassText:(GMLClassText *)classText result:(NSTextCheckingResult *)result;
+- (void)addClassText:(GMLClassSet *)classText;
 
 @end
 

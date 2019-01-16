@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class GMLClassSet;
 
 @interface GMLClassParserService : NSObject
 
-
+- (nullable GMLClassSet *)parserOCClassText:(NSString *)classText;
 
 @end
 
