@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) NSString *fileName;
 
+- (nullable NSString *)getFilePathWithPathExtension:(NSString *)pathExtension;
+
 - (BOOL)addFilePath:(NSString *)filePath;
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;

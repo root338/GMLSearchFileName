@@ -13,14 +13,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (GMLPathTools)
 
-@property (nonatomic, assign, readonly) GMLPathType pathType;
+@property (nonatomic, readonly) GMLPathType pathType;
 
-@property (nonatomic, assign, readonly) GMLFolderType folderType;
+@property (nonatomic, readonly) GMLFileType fileType;
+@property (nonatomic, readonly) GMLFolderType folderType;
 
 /**
  * 从 fromPath 到 toPath 的文件夹数组
  */
 + (nullable NSArray<NSString *> *)folderListAtFromPath:(NSString *)fromPath toPath:(NSString *)toPath;
+
+
+@property (nonatomic, readonly) NSRange rangeOfAll;
 
 @end
 

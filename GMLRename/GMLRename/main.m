@@ -8,10 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+#import "GMLRenameService.h"
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
-        NSLog(@"Hello, World!");
+        
+        GMLRenameService *renameService = GMLRenameService.new;
+        renameService.searchPath = @"/Users/apple/dev/yuemeiProject/YMMainApp/QuickAskCommunity/QuickAskCommunity/Classes/Module/HomePage/Controller/MainController";
+        [renameService run];
     }
     return 0;
 }

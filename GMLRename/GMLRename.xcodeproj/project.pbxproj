@@ -15,6 +15,13 @@
 		1847E05E21EDB5DE004B7D4E /* GMLPackageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847E05D21EDB5DE004B7D4E /* GMLPackageService.m */; };
 		1847E06121EDBA8F004B7D4E /* GMLStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847E06021EDBA8F004B7D4E /* GMLStack.m */; };
 		1847E39221EDC979004B7D4E /* GMLFileParserService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847E39121EDC979004B7D4E /* GMLFileParserService.m */; };
+		1847E3A321EEE6F0004B7D4E /* GMLFileContentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847E3A221EEE6F0004B7D4E /* GMLFileContentService.m */; };
+		1847E3BB21EEE825004B7D4E /* NSURL+GMLPathAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847E3B321EEE824004B7D4E /* NSURL+GMLPathAdd.m */; };
+		1847E3BC21EEE825004B7D4E /* NSString+GMLPathTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847E3B421EEE824004B7D4E /* NSString+GMLPathTools.m */; };
+		1847E3BD21EEE825004B7D4E /* GMLFileConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847E3BA21EEE824004B7D4E /* GMLFileConstants.m */; };
+		1847E3C021EEF974004B7D4E /* GMLTextContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847E3BF21EEF974004B7D4E /* GMLTextContent.m */; };
+		1847E3C521EF1BE0004B7D4E /* GMLClassText.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847E3C421EF1BE0004B7D4E /* GMLClassText.m */; };
+		1847E3C821EF3988004B7D4E /* GMLClassParserService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847E3C721EF3988004B7D4E /* GMLClassParserService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +53,22 @@
 		1847E06021EDBA8F004B7D4E /* GMLStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLStack.m; sourceTree = "<group>"; };
 		1847E39021EDC979004B7D4E /* GMLFileParserService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLFileParserService.h; sourceTree = "<group>"; };
 		1847E39121EDC979004B7D4E /* GMLFileParserService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLFileParserService.m; sourceTree = "<group>"; };
+		1847E3A121EEE6F0004B7D4E /* GMLFileContentService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLFileContentService.h; sourceTree = "<group>"; };
+		1847E3A221EEE6F0004B7D4E /* GMLFileContentService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLFileContentService.m; sourceTree = "<group>"; };
+		1847E3B321EEE824004B7D4E /* NSURL+GMLPathAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+GMLPathAdd.m"; sourceTree = "<group>"; };
+		1847E3B421EEE824004B7D4E /* NSString+GMLPathTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+GMLPathTools.m"; sourceTree = "<group>"; };
+		1847E3B521EEE824004B7D4E /* NSURL+GMLPathAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+GMLPathAdd.h"; sourceTree = "<group>"; };
+		1847E3B621EEE824004B7D4E /* NSString+GMLPathTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+GMLPathTools.h"; sourceTree = "<group>"; };
+		1847E3B821EEE824004B7D4E /* GMLFileConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMLFileConstants.h; sourceTree = "<group>"; };
+		1847E3B921EEE824004B7D4E /* GMLPathDefineTypeHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMLPathDefineTypeHeader.h; sourceTree = "<group>"; };
+		1847E3BA21EEE824004B7D4E /* GMLFileConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMLFileConstants.m; sourceTree = "<group>"; };
+		1847E3BE21EEF974004B7D4E /* GMLTextContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLTextContent.h; sourceTree = "<group>"; };
+		1847E3BF21EEF974004B7D4E /* GMLTextContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLTextContent.m; sourceTree = "<group>"; };
+		1847E3C221EF021A004B7D4E /* GMLFileDefineTypeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLFileDefineTypeHeader.h; sourceTree = "<group>"; };
+		1847E3C321EF1BE0004B7D4E /* GMLClassText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLClassText.h; sourceTree = "<group>"; };
+		1847E3C421EF1BE0004B7D4E /* GMLClassText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLClassText.m; sourceTree = "<group>"; };
+		1847E3C621EF3988004B7D4E /* GMLClassParserService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLClassParserService.h; sourceTree = "<group>"; };
+		1847E3C721EF3988004B7D4E /* GMLClassParserService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLClassParserService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				1847E03421EDA7A3004B7D4E /* main.m */,
+				1847E3C121EF01FB004B7D4E /* Define */,
+				1847E3B121EEE824004B7D4E /* Tools */,
 				1847E38F21EDC92D004B7D4E /* Services */,
 				1847E38E21EDC920004B7D4E /* Modes */,
 			);
@@ -92,6 +117,10 @@
 				1847E05421EDACAA004B7D4E /* GMLSearchFileConfiguration.m */,
 				1847E05F21EDBA8F004B7D4E /* GMLStack.h */,
 				1847E06021EDBA8F004B7D4E /* GMLStack.m */,
+				1847E3BE21EEF974004B7D4E /* GMLTextContent.h */,
+				1847E3BF21EEF974004B7D4E /* GMLTextContent.m */,
+				1847E3C321EF1BE0004B7D4E /* GMLClassText.h */,
+				1847E3C421EF1BE0004B7D4E /* GMLClassText.m */,
 			);
 			path = Modes;
 			sourceTree = "<group>";
@@ -109,8 +138,51 @@
 				1847E05D21EDB5DE004B7D4E /* GMLPackageService.m */,
 				1847E39021EDC979004B7D4E /* GMLFileParserService.h */,
 				1847E39121EDC979004B7D4E /* GMLFileParserService.m */,
+				1847E3C621EF3988004B7D4E /* GMLClassParserService.h */,
+				1847E3C721EF3988004B7D4E /* GMLClassParserService.m */,
+				1847E3A121EEE6F0004B7D4E /* GMLFileContentService.h */,
+				1847E3A221EEE6F0004B7D4E /* GMLFileContentService.m */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		1847E3B121EEE824004B7D4E /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				1847E3B221EEE824004B7D4E /* Tools */,
+				1847E3B721EEE824004B7D4E /* DefineType */,
+			);
+			name = Tools;
+			path = ../../Tools;
+			sourceTree = "<group>";
+		};
+		1847E3B221EEE824004B7D4E /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				1847E3B521EEE824004B7D4E /* NSURL+GMLPathAdd.h */,
+				1847E3B321EEE824004B7D4E /* NSURL+GMLPathAdd.m */,
+				1847E3B621EEE824004B7D4E /* NSString+GMLPathTools.h */,
+				1847E3B421EEE824004B7D4E /* NSString+GMLPathTools.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		1847E3B721EEE824004B7D4E /* DefineType */ = {
+			isa = PBXGroup;
+			children = (
+				1847E3B921EEE824004B7D4E /* GMLPathDefineTypeHeader.h */,
+				1847E3B821EEE824004B7D4E /* GMLFileConstants.h */,
+				1847E3BA21EEE824004B7D4E /* GMLFileConstants.m */,
+			);
+			path = DefineType;
+			sourceTree = "<group>";
+		};
+		1847E3C121EF01FB004B7D4E /* Define */ = {
+			isa = PBXGroup;
+			children = (
+				1847E3C221EF021A004B7D4E /* GMLFileDefineTypeHeader.h */,
+			);
+			path = Define;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,11 +243,18 @@
 			files = (
 				1847E05E21EDB5DE004B7D4E /* GMLPackageService.m in Sources */,
 				1847E05B21EDB46F004B7D4E /* GMLFileService.m in Sources */,
+				1847E3C821EF3988004B7D4E /* GMLClassParserService.m in Sources */,
+				1847E3BB21EEE825004B7D4E /* NSURL+GMLPathAdd.m in Sources */,
 				1847E06121EDBA8F004B7D4E /* GMLStack.m in Sources */,
 				1847E04021EDA88F004B7D4E /* GMLSearchFileService.m in Sources */,
 				1847E05521EDACAA004B7D4E /* GMLSearchFileConfiguration.m in Sources */,
+				1847E3C021EEF974004B7D4E /* GMLTextContent.m in Sources */,
+				1847E3BD21EEE825004B7D4E /* GMLFileConstants.m in Sources */,
 				1847E03D21EDA7BB004B7D4E /* GMLRenameService.m in Sources */,
+				1847E3BC21EEE825004B7D4E /* NSString+GMLPathTools.m in Sources */,
 				1847E03521EDA7A3004B7D4E /* main.m in Sources */,
+				1847E3A321EEE6F0004B7D4E /* GMLFileContentService.m in Sources */,
+				1847E3C521EF1BE0004B7D4E /* GMLClassText.m in Sources */,
 				1847E39221EDC979004B7D4E /* GMLFileParserService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,9 +13,11 @@
 		1828F93E21DEFB2400ADE215 /* YMXcodeProjectFileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1828F93D21DEFB2400ADE215 /* YMXcodeProjectFileService.m */; };
 		1828F94121DF000400ADE215 /* YMParserFileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1828F94021DF000400ADE215 /* YMParserFileService.m */; };
 		1847DFFD21ED87A5004B7D4E /* GMLEditClassService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847DFFC21ED87A5004B7D4E /* GMLEditClassService.m */; };
+		1847E3AE21EEE814004B7D4E /* NSURL+GMLPathAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847E3A621EEE814004B7D4E /* NSURL+GMLPathAdd.m */; };
+		1847E3AF21EEE814004B7D4E /* NSString+GMLPathTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847E3A721EEE814004B7D4E /* NSString+GMLPathTools.m */; };
+		1847E3B021EEE814004B7D4E /* GMLFileConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847E3AD21EEE814004B7D4E /* GMLFileConstants.m */; };
 		187ED65521E2ECBE0000CF7B /* YMImageFileMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 187ED65421E2ECBE0000CF7B /* YMImageFileMode.m */; };
 		187ED65A21E2F30F0000CF7B /* GMLFolderMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 187ED65921E2F30F0000CF7B /* GMLFolderMode.m */; };
-		187ED66121E2F6FA0000CF7B /* NSURL+GMLPathAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 187ED66021E2F6FA0000CF7B /* NSURL+GMLPathAdd.m */; };
 		187ED66521E4374C0000CF7B /* GMLSearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 187ED66421E4374C0000CF7B /* GMLSearchService.m */; };
 		187ED66F21E442E80000CF7B /* GMLClassFileMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 187ED66E21E442E80000CF7B /* GMLClassFileMode.m */; };
 		187ED67821E443590000CF7B /* GMLImageFileMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 187ED67721E443590000CF7B /* GMLImageFileMode.m */; };
@@ -33,7 +35,6 @@
 		18BB152421DF25540043CBA6 /* YMProjectMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BB152321DF25540043CBA6 /* YMProjectMode.m */; };
 		6D88417621E06C7F00DB8B27 /* GMLFileGroupingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88417521E06C7F00DB8B27 /* GMLFileGroupingService.m */; };
 		6D88417921E06D6500DB8B27 /* GMLDeleteFileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88417821E06D6500DB8B27 /* GMLDeleteFileService.m */; };
-		6D88417E21E07F9B00DB8B27 /* GMLFileConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88417D21E07F9B00DB8B27 /* GMLFileConstants.m */; };
 		6D88418121E088AC00DB8B27 /* GMLLogService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88418021E088AC00DB8B27 /* GMLLogService.m */; };
 		6D88418421E0A1B400DB8B27 /* GMLFilterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88418321E0A1B400DB8B27 /* GMLFilterService.m */; };
 		6D88418721E0DAAA00DB8B27 /* GMLFolderGroupingMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88418621E0DAAA00DB8B27 /* GMLFolderGroupingMode.m */; };
@@ -41,7 +42,6 @@
 		6DBB5A5321E1C4D200305AB9 /* GMLIOSProjectService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBB5A5221E1C4D200305AB9 /* GMLIOSProjectService.m */; };
 		6DBB5A5621E1C5FB00305AB9 /* GMLProjectParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBB5A5521E1C5FB00305AB9 /* GMLProjectParser.m */; };
 		6DBB5A5921E211BB00305AB9 /* GMLOCFileMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBB5A5821E211BB00305AB9 /* GMLOCFileMode.m */; };
-		6DBB5A5D21E2161300305AB9 /* NSString+GMLPathTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBB5A5C21E2161300305AB9 /* NSString+GMLPathTools.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -69,13 +69,18 @@
 		1828F94021DF000400ADE215 /* YMParserFileService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMParserFileService.m; sourceTree = "<group>"; };
 		1847DFFB21ED87A4004B7D4E /* GMLEditClassService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLEditClassService.h; sourceTree = "<group>"; };
 		1847DFFC21ED87A5004B7D4E /* GMLEditClassService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLEditClassService.m; sourceTree = "<group>"; };
+		1847E3A621EEE814004B7D4E /* NSURL+GMLPathAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+GMLPathAdd.m"; sourceTree = "<group>"; };
+		1847E3A721EEE814004B7D4E /* NSString+GMLPathTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+GMLPathTools.m"; sourceTree = "<group>"; };
+		1847E3A821EEE814004B7D4E /* NSURL+GMLPathAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+GMLPathAdd.h"; sourceTree = "<group>"; };
+		1847E3A921EEE814004B7D4E /* NSString+GMLPathTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+GMLPathTools.h"; sourceTree = "<group>"; };
+		1847E3AB21EEE814004B7D4E /* GMLFileConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMLFileConstants.h; sourceTree = "<group>"; };
+		1847E3AC21EEE814004B7D4E /* GMLPathDefineTypeHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMLPathDefineTypeHeader.h; sourceTree = "<group>"; };
+		1847E3AD21EEE814004B7D4E /* GMLFileConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMLFileConstants.m; sourceTree = "<group>"; };
 		187ED65321E2ECBD0000CF7B /* YMImageFileMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMImageFileMode.h; sourceTree = "<group>"; };
 		187ED65421E2ECBE0000CF7B /* YMImageFileMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMImageFileMode.m; sourceTree = "<group>"; };
 		187ED65721E2F2D40000CF7B /* GMLPathProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLPathProtocol.h; sourceTree = "<group>"; };
 		187ED65821E2F30F0000CF7B /* GMLFolderMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLFolderMode.h; sourceTree = "<group>"; };
 		187ED65921E2F30F0000CF7B /* GMLFolderMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLFolderMode.m; sourceTree = "<group>"; };
-		187ED65F21E2F6FA0000CF7B /* NSURL+GMLPathAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+GMLPathAdd.h"; sourceTree = "<group>"; };
-		187ED66021E2F6FA0000CF7B /* NSURL+GMLPathAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+GMLPathAdd.m"; sourceTree = "<group>"; };
 		187ED66321E4374C0000CF7B /* GMLSearchService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLSearchService.h; sourceTree = "<group>"; };
 		187ED66421E4374C0000CF7B /* GMLSearchService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLSearchService.m; sourceTree = "<group>"; };
 		187ED66D21E442E80000CF7B /* GMLClassFileMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLClassFileMode.h; sourceTree = "<group>"; };
@@ -121,8 +126,6 @@
 		6D88417521E06C7F00DB8B27 /* GMLFileGroupingService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLFileGroupingService.m; sourceTree = "<group>"; };
 		6D88417721E06D6500DB8B27 /* GMLDeleteFileService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLDeleteFileService.h; sourceTree = "<group>"; };
 		6D88417821E06D6500DB8B27 /* GMLDeleteFileService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLDeleteFileService.m; sourceTree = "<group>"; };
-		6D88417C21E07F9B00DB8B27 /* GMLFileConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLFileConstants.h; sourceTree = "<group>"; };
-		6D88417D21E07F9B00DB8B27 /* GMLFileConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLFileConstants.m; sourceTree = "<group>"; };
 		6D88417F21E088AC00DB8B27 /* GMLLogService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLLogService.h; sourceTree = "<group>"; };
 		6D88418021E088AC00DB8B27 /* GMLLogService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLLogService.m; sourceTree = "<group>"; };
 		6D88418221E0A1B400DB8B27 /* GMLFilterService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLFilterService.h; sourceTree = "<group>"; };
@@ -137,9 +140,6 @@
 		6DBB5A5521E1C5FB00305AB9 /* GMLProjectParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLProjectParser.m; sourceTree = "<group>"; };
 		6DBB5A5721E211BB00305AB9 /* GMLOCFileMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLOCFileMode.h; sourceTree = "<group>"; };
 		6DBB5A5821E211BB00305AB9 /* GMLOCFileMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLOCFileMode.m; sourceTree = "<group>"; };
-		6DBB5A5B21E2161300305AB9 /* NSString+GMLPathTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+GMLPathTools.h"; sourceTree = "<group>"; };
-		6DBB5A5C21E2161300305AB9 /* NSString+GMLPathTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+GMLPathTools.m"; sourceTree = "<group>"; };
-		6DBB5A5E21E218DF00305AB9 /* GMLPathDefineTypeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLPathDefineTypeHeader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,14 +175,43 @@
 				1828F92C21DEF72600ADE215 /* main.m */,
 				1828F93C21DEFB2400ADE215 /* YMXcodeProjectFileService.h */,
 				1828F93D21DEFB2400ADE215 /* YMXcodeProjectFileService.m */,
-				187ED66221E2F7090000CF7B /* DefineType */,
-				187ED65D21E2F6960000CF7B /* Tools */,
+				1847E3A421EEE814004B7D4E /* Tools */,
 				187ED65621E2F2960000CF7B /* Protocol */,
 				6D88418C21E0F7D300DB8B27 /* Helper */,
 				6D88417A21E06D8B00DB8B27 /* Mode */,
 				6D88417321E06A4D00DB8B27 /* FileService */,
 			);
 			path = YMSearchFile;
+			sourceTree = "<group>";
+		};
+		1847E3A421EEE814004B7D4E /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				1847E3A521EEE814004B7D4E /* Tools */,
+				1847E3AA21EEE814004B7D4E /* DefineType */,
+			);
+			path = Tools;
+			sourceTree = SOURCE_ROOT;
+		};
+		1847E3A521EEE814004B7D4E /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				1847E3A621EEE814004B7D4E /* NSURL+GMLPathAdd.m */,
+				1847E3A721EEE814004B7D4E /* NSString+GMLPathTools.m */,
+				1847E3A821EEE814004B7D4E /* NSURL+GMLPathAdd.h */,
+				1847E3A921EEE814004B7D4E /* NSString+GMLPathTools.h */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		1847E3AA21EEE814004B7D4E /* DefineType */ = {
+			isa = PBXGroup;
+			children = (
+				1847E3AB21EEE814004B7D4E /* GMLFileConstants.h */,
+				1847E3AC21EEE814004B7D4E /* GMLPathDefineTypeHeader.h */,
+				1847E3AD21EEE814004B7D4E /* GMLFileConstants.m */,
+			);
+			path = DefineType;
 			sourceTree = "<group>";
 		};
 		187ED65621E2F2960000CF7B /* Protocol */ = {
@@ -194,27 +223,6 @@
 				187ED69C21E5A03E0000CF7B /* FileSet */,
 			);
 			path = Protocol;
-			sourceTree = "<group>";
-		};
-		187ED65D21E2F6960000CF7B /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				6DBB5A5B21E2161300305AB9 /* NSString+GMLPathTools.h */,
-				6DBB5A5C21E2161300305AB9 /* NSString+GMLPathTools.m */,
-				187ED65F21E2F6FA0000CF7B /* NSURL+GMLPathAdd.h */,
-				187ED66021E2F6FA0000CF7B /* NSURL+GMLPathAdd.m */,
-			);
-			path = Tools;
-			sourceTree = "<group>";
-		};
-		187ED66221E2F7090000CF7B /* DefineType */ = {
-			isa = PBXGroup;
-			children = (
-				6DBB5A5E21E218DF00305AB9 /* GMLPathDefineTypeHeader.h */,
-				6D88417C21E07F9B00DB8B27 /* GMLFileConstants.h */,
-				6D88417D21E07F9B00DB8B27 /* GMLFileConstants.m */,
-			);
-			path = DefineType;
 			sourceTree = "<group>";
 		};
 		187ED66621E43BCB0000CF7B /* FileMode */ = {
@@ -416,7 +424,7 @@
 				187ED68521E481830000CF7B /* GMLStoryboardFileMode.m in Sources */,
 				187ED69B21E59F5D0000CF7B /* GMLClassMode.m in Sources */,
 				6D88418F21E0F7F100DB8B27 /* GMLProjectGroupingHelper.m in Sources */,
-				187ED66121E2F6FA0000CF7B /* NSURL+GMLPathAdd.m in Sources */,
+				1847E3AE21EEE814004B7D4E /* NSURL+GMLPathAdd.m in Sources */,
 				6DBB5A5321E1C4D200305AB9 /* GMLIOSProjectService.m in Sources */,
 				6D88418121E088AC00DB8B27 /* GMLLogService.m in Sources */,
 				6D88418721E0DAAA00DB8B27 /* GMLFolderGroupingMode.m in Sources */,
@@ -427,18 +435,18 @@
 				187ED68121E4723B0000CF7B /* GMLSwiftClassFileMode.m in Sources */,
 				1847DFFD21ED87A5004B7D4E /* GMLEditClassService.m in Sources */,
 				1828F92D21DEF72600ADE215 /* main.m in Sources */,
-				6DBB5A5D21E2161300305AB9 /* NSString+GMLPathTools.m in Sources */,
 				187ED68C21E4A1620000CF7B /* GMLClassService.m in Sources */,
 				187ED65A21E2F30F0000CF7B /* GMLFolderMode.m in Sources */,
-				6D88417E21E07F9B00DB8B27 /* GMLFileConstants.m in Sources */,
 				187ED66521E4374C0000CF7B /* GMLSearchService.m in Sources */,
 				1828F93821DEF7E400ADE215 /* YMSearchFileService.m in Sources */,
 				1828F93E21DEFB2400ADE215 /* YMXcodeProjectFileService.m in Sources */,
 				6D88417921E06D6500DB8B27 /* GMLDeleteFileService.m in Sources */,
 				187ED6AA21E5BE400000CF7B /* GMLClassFileService.m in Sources */,
 				187ED66F21E442E80000CF7B /* GMLClassFileMode.m in Sources */,
+				1847E3AF21EEE814004B7D4E /* NSString+GMLPathTools.m in Sources */,
 				6D88417621E06C7F00DB8B27 /* GMLFileGroupingService.m in Sources */,
 				187ED69521E4AFAD0000CF7B /* GMLPropertyMode.m in Sources */,
+				1847E3B021EEE814004B7D4E /* GMLFileConstants.m in Sources */,
 				187ED69821E4AFC40000CF7B /* GMLMethodMode.m in Sources */,
 				6DBB5A5921E211BB00305AB9 /* GMLOCFileMode.m in Sources */,
 				6DBB5A5621E1C5FB00305AB9 /* GMLProjectParser.m in Sources */,

@@ -7,12 +7,12 @@
 //
 
 #import "GMLRenameService.h"
-#import "GMLSearchFileService.h"
-
 #import "GMLStack.h"
-#import "GMLProjectMode.h"
 #import "GMLFileService.h"
+#import "GMLFileConstants.h"
 #import "GMLPackageService.h"
+#import "GMLSearchFileService.h"
+#import "GMLFileParserService.h"
 
 @interface GMLRenameService ()<GMLSearchFileServiceDelegate>
 
@@ -26,6 +26,7 @@
 @property (nonatomic, strong) NSMapTable<NSString *, GMLPackageService *> *packageServiceMapTable;
 
 @property (nonatomic, strong) GMLSearchFileService *searchFileService;
+@property (nonatomic, strong) GMLFileParserService *fileParserService;
 
 @property (nonatomic, strong) GMLStack<NSString *> *packageStack;
 @end
@@ -34,8 +35,12 @@
 
 - (void)run {
     
-    
-    
+    [self.searchFileService startSearchPath:self.searchPath];
+    NSArray *fileServices = NSAllMapTableValues(self.fileServiceMapTable);
+    for (GMLFileService *fileService in fileServices) {
+        NSString *filePath = [fileService getFilePathWithPathExtension:GMLHTypeFile];
+        [self.fileParserService parserFilePath:filePath];
+    }
 }
 
 #pragma mark - GMLSearchFileServiceDelegate
@@ -79,10 +84,11 @@
 }
 
 - (GMLFileService *)getFileServiceAtFileName:(NSString *)fileName {
-    GMLFileService *fileService = [[GMLFileService alloc] initWithFileName:fileName];
+    GMLFileService *fileService = [_fileServiceMapTable objectForKey:fileName];
     if (fileService != nil) {
         return fileService;
     }
+    fileService = [[GMLFileService alloc] initWithFileName:fileName];
     [self.fileServiceMapTable setObject:fileService forKey:fileName];
     return fileService;
 }
@@ -115,6 +121,13 @@
         _packageStack = GMLStack.new;
     }
     return _packageStack;
+}
+
+- (GMLFileParserService *)fileParserService {
+    if (_fileParserService == nil) {
+        _fileParserService = GMLFileParserService.new;
+    }
+    return _fileParserService;
 }
 
 @end

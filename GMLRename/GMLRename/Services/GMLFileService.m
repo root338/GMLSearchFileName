@@ -24,8 +24,19 @@
     return self;
 }
 
+- (NSString *)getFilePathWithPathExtension:(NSString *)pathExtension {
+    
+    for (NSString *filePath in _filePathSet) {
+        NSString *PE = filePath.pathExtension.lowercaseString;
+        if ([PE isEqualToString:pathExtension]) {
+            return filePath;
+        }
+    }
+    return nil;
+}
+
 - (BOOL)addFilePath:(NSString *)filePath {
-    if (![[filePath.lastPathComponent stringByDeletingLastPathComponent] isEqualToString:_fileName]) {
+    if (![filePath.lastPathComponent.stringByDeletingPathExtension isEqualToString:_fileName]) {
         return NO;
     }
     [self.filePathSet addObject:filePath];
